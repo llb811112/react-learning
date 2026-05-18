@@ -10,6 +10,9 @@ function APP(){
      function ClickHandle(name){
         console.log("Button Clicked",name);
      }
+     function ClickHandle1(name,e){
+        console.log("Button Clicked",name,e);
+     }
     return(
         <div>
     {/* React 基础事件绑定; */}
@@ -18,6 +21,8 @@ function APP(){
     <button onMouseOver={HandleMouseOver}>鼠标悬停我</button>
     {/*3. 传递自定义参数; */}
     <button onClick = {()=>ClickHandle('我是中国人,我是React开发者')}>传递参数</button>
+    {/*4. 同时传透事件对象和自定义参数; */}
+    <button onClick = {(e)=>ClickHandle1('我是中国人',e)}>同时传透事件对象和自定义参数</button>
         </div>
 
     )
