@@ -1,16 +1,16 @@
-// 计数器
-import { useState } from 'react';
- 
+import './index.css';
+const spans = {
+    color:'blue',
+    fontSize:'20px',
+    fontWeight:'bold'
+};
 function APP () {
-    const [count, setCount] = useState(0);
-   function handleClick(){
-    setCount(count+1);
-   }
-    return  (
-     <div>
-          <button onClick= { handleClick}>{count}</button>
- 
-            </div>
-    )
+return (
+    <div>
+    <span className="app"> 111</span>
+    <span style={spans}> 222</span>
+    </div>
+)
 }
+
 export default APP;
