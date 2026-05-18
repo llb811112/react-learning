@@ -115,3 +115,59 @@ return (
 <img src="image/write/1779074291928.png" width="300" height="auto"/>
 
 解决方案:自定义函数+if判断语句
+
+# React 基础事件绑定;
+
+## React 基础事件绑定;
+
+语法: **on+事件名称={事件处理程序}**,整体上遵循驼峰峰命名法
+
+```jsx
+function HandleClick(){  
+    alert("Button Clicked");
+}   
+function APP(){
+    return(
+        <div>
+    <button onClick={HandleClick}>点击我</button>
+        </div>
+
+    )
+}
+export default APP;
+```
+
+我发现react里面onClick里面那个函数没有加括号 这个是因为 react JSX就是纯的JavaScript;
+
+* **不加 `()`** ：传递函数本身，等待事件触发时才调用 ✅
+* **加 `()`** ：立即执行函数，把返回值传给 onClick ❌
+
+## 使用事件对象参数
+
+语法:在事件回调函数中设置形参e
+
+```jsx
+     function HandleMouseOver(e){
+        console.log("Mouse Over",e);
+     }
+```
+
+然后一样调用;
+
+## 传递自定义参数;
+
+语法:事件绑定的位置改造成箭头函数的写法,在执行clickHandler实际处理业务函数的时候传递实参
+
+```jsx
+ function APP(){
+    function ClickHandle(name){
+        console.log("Button Clicked",name);
+     }
+     return(
+    <button onClick = {()=>ClickHandle('我是中国人,我是React开发者')}>传递参数</button>
+    )
+}
+export default APP;
+```
+
+注意:不能直接写函数调用,这里事件绑定需要一个函数引用

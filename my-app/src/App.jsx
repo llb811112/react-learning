@@ -1,25 +1,25 @@
-const isShow = true;
-const article = 1; 
-function articleType (){
-    if (article === 1) {
-        return <span style={{color:'red'}}>单图</span>
-    }
-    else if (article === 2) {
-        return '多图'
-    }
+// React 基础事件绑定;
+
+function APP(){
+    function HandleClick(){    
+    alert("Button Clicked");
+}   
+     function HandleMouseOver(e){
+        console.log("Mouse Over",e);
+     }
+     function ClickHandle(name){
+        console.log("Button Clicked",name);
+     }
+    return(
+        <div>
+    {/* React 基础事件绑定; */}
+    <button onClick={HandleClick}>点击我</button>
+    {/*2. 使用事件对象参数 */}
+    <button onMouseOver={HandleMouseOver}>鼠标悬停我</button>
+    {/*3. 传递自定义参数; */}
+    <button onClick = {()=>ClickHandle('我是中国人,我是React开发者')}>传递参数</button>
+        </div>
+
+    )
 }
-function App() {
-  return (
-    <>
-    {/* 1.通过逻辑与来控制某个元素的显示和隐藏; */}
-     { isShow && <div> 我显示出来了</div>}
-      this is app
-    {/* 2.三元运算符 来实现两个元素的分支切换显示; */}
-    { isShow ? <div>我显示出来了</div>: <div>我被隐藏了</div>}
-
-    {/* JSX中实现复杂条件渲染; */}
-    { articleType()}
-
-    </>
-  );}
-  export default App;
+export default APP;
