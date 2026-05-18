@@ -216,3 +216,20 @@ export default APP;
 ! React 组件是常规的 JavaScript 函数，但  **组件的名称必须以大写字母开头** ，否则它们将无法运行！
 
 ! 组件可以渲染其他组件，但是  **请不要嵌套他们的定义** ：    组件嵌套组件 会非常慢 而且有可能出现bug;
+
+
+# useState基础使用:
+
+useState是一个React Hook(函数),它允许我们向组件添加一个状态变量,从而控制影响组件的渲染结果
+
+本质:和普通JS变量不同的是,状态变量一旦发生变化组件的视图UI也会跟着变化(数据驱动视图)
+
+`useState` 返回一个由两个值组成的数组：
+
+1. 当前的 state。在首次渲染时，它将与你传递的 `initialState` 相匹配。
+2. [`set` 函数](https://zh-hans.react.dev/reference/react/useState#setstate)，它可以让你将 state 更新为不同的值并触发重新渲染。
+
+`useState` 返回的 `set` 函数允许你将 state 更新为不同的值并触发重新渲染。你可以直接传递新状态，也可以传递一个根据先前状态来计算新状态的函数
+
+
+调用 `set` 函数  **不能改变运行中代码的状态** ：

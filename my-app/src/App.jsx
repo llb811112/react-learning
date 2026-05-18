@@ -1,13 +1,14 @@
-function App() {
-    return (
-        <div>我是app组件</div>
-    )
-}
+import { useState } from 'react';
+ 
 function APP () {
+    const [count, setCount] = useState(0);
+   function handleClick(){
+    setCount(count +1);
+   }
     return  (
      <div>
-            <App/>
-            <div>111</div>
+          <button onClick= { handleClick}>{count}</button>
+ 
             </div>
     )
 }
