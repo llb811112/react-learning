@@ -1,29 +1,12 @@
-const count = 23;
-function getName() {
-  return 'aaa'
-}
-const list = [
-  { id: 1, name: 'aaa' },
-  { id: 2, name: 'bbb' },
-  { id: 3, name: 'ccc' }
-];
+const isShow = true;
 function App() {
   return (
- <div>
-  this is app
-  {/* 1.使用引号传递字符串 */}
-  {'111'}
-  {/* 2.使用JavaScript变量` */}
-  {count}
-  {/* 3.函数调用和方法调用 */}
-  {getName()} {getName().toUpperCase()}
-  {/* 4.使用js对象 */}
-  <div style={{color:'red'}}>111</div>
-  
-  {/* JSX中实现列表渲染:  map 方法 */}
-  {list.map(item => <li key ={item.id}>{item.name}</li>)}    
- </div>
-  )
-}
-
-export default App
+    <div>
+    {/* 1.通过逻辑与来控制某个元素的显示和隐藏; */}
+     { isShow && <div> 我显示出来了</div>}
+      this is app
+    {/* 2.三元运算符 来实现两个元素的分支切换显示; */}
+    { isShow ? <div>我显示出来了</div>: <div>我被隐藏了</div>}
+    </div>
+  );}
+  export default App;
