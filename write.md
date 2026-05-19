@@ -263,3 +263,99 @@ React组件基础的样式控制有俩种方式:
 > 使用时用的是className属性;
 >
 > `<span className='app'> 111</span>`
+
+
+
+# 案例-B站评论案例;
+
+1.渲染评论列表
+2.删除评论实现
+3.渲染导航Tab和高亮实现
+4.评论列表排序功能实现
+
+# react中图片导入:
+
+> react中 相对路径写法通常无法正确加载图片;
+>
+> **直接在 `src` 属性中使用字符串相对路径**
+>
+> `<img src="./assets/avatar.jpg" alt="avatar" />`  // ❌ 不生效
+
+## React 中相对路径的规则：
+
+### 1.图片放在 src 目录下,使用 import 导入;
+
+```jsx
+import avatarImg from './assets/avatar.jpg';  // 相对路径
+<img src={avatarImg} alt="avatar" />
+```
+
+### 2.图片放在 public 目录下路径:
+
+```jsx
+<img src="/assets/avatar.jpg" alt="avatar" />  // 相对于 public
+```
+
+## 3.require 导入:
+
+```jsx
+// 直接使用
+<img src={require('./assets/avatar.jpg')} alt="avatar" />
+
+// 动态路径
+const imgName = 'avatar';
+<img src={require(`./assets/${imgName}.jpg`)} alt="avatar" />
+```
+
+## **4.使用 URL 构造函数:**
+
+```jsx
+import avatarUrl from './assets/avatar.jpg?url';
+<img src={avatarUrl} alt="avatar" />
+```
+
+## 5.批量导入（导入整个文件夹）:
+
+```jsx
+// 创建 images/index.js
+const images = {
+  avatar: require('./avatar.jpg'),
+  logo: require('./logo.png'),
+  bg: require('./bg.jpg'),
+};
+export default images;
+
+// 使用
+import images from './images';
+<img src={images.avatar} alt="avatar" />
+```
+
+## 6.动态导入(懒加载):
+
+```jsx
+import { useState, useEffect } from 'react';
+
+function DynamicImage() {
+  const [imgSrc, setImgSrc] = useState('');
+  
+  useEffect(() => {
+    import('./assets/avatar.jpg').then(module => {
+      setImgSrc(module.default);
+    });
+  }, []);
+  
+  return <img src={imgSrc} alt="avatar" />;
+}
+```
+
+## 7.svg特殊处理:
+
+```jsx
+// 作为 React 组件导入
+import { ReactComponent as Logo } from './logo.svg';
+<Logo />
+
+// 作为 URL 导入
+import logoUrl from './logo.svg';
+<img src={logoUrl} alt="logo" />
+```
