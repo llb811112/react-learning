@@ -1,6 +1,7 @@
 import './App.scss'
 import avatar from '/avatar.jpg'
 import { useState } from 'react'
+import _ from 'lodash'
 /**
  * 评论列表的渲染和操作
  *
@@ -16,7 +17,7 @@ const defaultList = [
     // 用户信息
     user: {
       uid: '13258165',
-      avatar: avatar,
+      avatar:'https://d.musicapp.migu.cn/prod/playlist-service/playListimg/402bdb81-c298-4582-b208-543920fb8b08.jpg',
       uname: '周杰伦',
     },
     // 评论内容
@@ -29,7 +30,7 @@ const defaultList = [
     rpid: 2,
     user: {
       uid: '36080105',
-      avatar: avatar,
+      avatar: 'https://pic1.zhimg.com/v2-3493de7b36ee03bcb81965994c42d141_r.jpg?source=1940ef5c',
       uname: '许嵩',
     },
     content: '我寻你千百度 日出到迟暮',
@@ -75,6 +76,19 @@ const tabs = [
 
 const App = () => {
   const [content, setContent] = useState(defaultList);
+
+  const [tablist, setTablist] = useState(tabs);
+  const [type, setType] = useState('hot');
+
+  function Select(type){
+    console.log('点击了', type);
+    setType(type);
+    if(type === 'hot'){
+      setContent(_.orderBy(content, ['like'], ['desc']))
+    }else{
+      setContent(_.orderBy(content, ['ctime'], ['desc']))
+    }
+  };
   return (
     <div className="app">
       {/* 导航 Tab */}
@@ -83,19 +97,21 @@ const App = () => {
           <li className="nav-title">
             <span className="nav-title-text">评论</span>
             {/* 评论数量 */}
-            <span className="total-reply">{10}</span>
+            <span className="total-reply">{content.length}</span>
           </li>
           <li className="nav-sort">
             {/* 高亮类名： active */}
-            <span className='nav-item'>最新</span>
-            <span className='nav-item'>最热</span>
+            {tablist.map(item =>{
+ 
+              return <span key={item.type} className={`nav-item ${type === item.type ? 'active' : ''} `} onClick= {() =>Select(item.type)} >{item.text}</span>
+            })} 
           </li>
         </ul>
       </div>
 
       <div className="reply-wrap">
         {/* 发表评论 */}
-        <div className="box-normal">
+        <div className="box-normal"> 
           {/* 当前用户头像 */}
           <div className="reply-box-avatar">
             <div className="bili-avatar">
@@ -152,7 +168,7 @@ const App = () => {
             </span>
             {/* 评论数量 */}
             <span className="reply-time">点赞数:{item.like}</span>
-            <span className="delete-btn">删除</span>
+            {user.uid === item.user.uid && <span className="delete-btn" onClick={() => setContent(content.filter(i => i.rpid !== item.rpid))}>删除</span>}
           </div>
         </div>
       </div>
