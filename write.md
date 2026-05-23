@@ -281,14 +281,10 @@ React组件基础的样式控制有俩种方式:
 
 > onClick={() => setContent(content.filter(i => i.rpid !== item.rpid))}
 >
-> * **onClick** ：绑定点击事件 
->
+> * **onClick** ：绑定点击事件
 > * **setContent** ：修改列表状态
->
 > * **filter** ：筛选数组，生成新数组
->
 > * **i.rpid !== item.rpid** ：剔除当前点击项
->
 > * **功能** ：点击删除列表对应条目
 
 ## 3.渲染导航Tab和高亮实现:
@@ -306,7 +302,6 @@ React组件基础的样式控制有俩种方式:
 核心思路:
 把评论列表状态数据进行不同的排序处理,当成新值传给set函数重新渲染视图UI
 
-
 # lodash
 
 **1. 简化数据处理**
@@ -320,7 +315,6 @@ React组件基础的样式控制有俩种方式:
 **3.提高开发效率**
 
 > 它有上百个常用函数，都是经过优化的，不用你自己从零写工具函数，比如防抖、节流、类型判断、数据分组等。
-
 
 # react中图片导入:
 
@@ -408,3 +402,31 @@ import { ReactComponent as Logo } from './logo.svg';
 import logoUrl from './logo.svg';
 <img src={logoUrl} alt="logo" />
 ```
+
+
+# classnames优化类名控制:   它是js库 ;
+
+> [classnames - npm](https://www.npmjs.com/package/classnames)
+
+classnames是一个简单的JS库，可以非常方便的 通过条件动态控制class类名的显示
+
+```jsx
+function APP ( ){
+ return(
+<div>
+<span 
+   key = {item.type }
+   onClick={ ()=> handleTabChange(item.type)}
+   className={ `nav-item ${type === item.type && 'active'}`}>
+   {item.text}
+</span>
+</div>
+)
+}   //问题: 字符串的拼接方式不够直观,也容易出错;
+```
+
+改: 
+
+> classNaame={className('nav-item',{active:type === item.type } ) }
+
+![1779515027238](image/write/1779515027238.png)

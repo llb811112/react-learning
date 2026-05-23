@@ -2,6 +2,7 @@ import './App.scss'
 import avatar from '/avatar.jpg'
 import { useState } from 'react'
 import _ from 'lodash'
+import classNames from 'classnames'
 /**
  * 评论列表的渲染和操作
  *
@@ -103,7 +104,13 @@ const App = () => {
             {/* 高亮类名： active */}
             {tablist.map(item =>{
  
-              return <span key={item.type} className={`nav-item ${type === item.type ? 'active' : ''} `} onClick= {() =>Select(item.type)} >{item.text}</span>
+              return <span
+               key={item.type}
+               className={   classNames('nav-item',{active: type === item.type})}
+                onClick= {() =>Select(item.type)}
+                 >
+                  {item.text}
+              </span>
             })} 
           </li>
         </ul>
