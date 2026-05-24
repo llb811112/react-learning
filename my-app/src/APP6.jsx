@@ -1,6 +1,6 @@
 import './App.scss'
 import avatar from '/avatar.jpg'
-import { useState } from 'react'
+import { useState,useRef } from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
 /**
@@ -80,7 +80,7 @@ const App = () => {
 
   const [tablist, setTablist] = useState(tabs);
   const [type, setType] = useState('hot');
-
+  const inputRef = useRef(null);
   function Select(type){
     console.log('点击了', type);
     setType(type);
@@ -90,8 +90,12 @@ const App = () => {
       setContent(_.orderBy(content, ['ctime'], ['desc']))
     }
   };
+  const subMit = () =>{
+    setContent([...content,{rpid:content.length+1,user,content:inputRef.current.value}]);
+    inputRef.current.value = '';
+  }
   return (
-    <div className="app">
+    <div className="app"> 
       {/* 导航 Tab */}
       <div className="reply-navigation">
         <ul className="nav-bar">
@@ -130,10 +134,14 @@ const App = () => {
             <textarea
               className="reply-box-textarea"
               placeholder="发一条友善的评论"
+              ref={inputRef}
             />
             {/* 发布按钮 */}
             <div className="reply-box-send">
-              <div className="send-text">发布</div>
+              <div 
+              className="send-text"
+              onClick = {()=>{subMit()}}
+              >发布</div>
             </div>
           </div>
         </div>
