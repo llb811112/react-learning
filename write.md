@@ -448,3 +448,20 @@ function APP ( ){
   value=[value]
   onChange={?(e) =>setValue(e.target.value)}
 ```
+
+
+# React中获取DOM;
+
+在React组件中获取/操作DOM,需要使用useRef钩子函数,分为两步:
+
+## 1.使用useRef创建ref对象,并与JSX绑定;
+
+```jsx
+const inputRef = useRef(null)
+
+<input type="text" ref={inputRef}/>
+```
+
+## 2.在DOM可用时,通过inputRef.current拿到DOM对象;
+
+> console.log(inputRef.current)
