@@ -403,7 +403,6 @@ import logoUrl from './logo.svg';
 <img src={logoUrl} alt="logo" />
 ```
 
-
 # classnames优化类名控制:   它是js库 ;
 
 > [classnames - npm](https://www.npmjs.com/package/classnames)
@@ -425,8 +424,27 @@ function APP ( ){
 }   //问题: 字符串的拼接方式不够直观,也容易出错;
 ```
 
-改: 
+改:
 
 > classNaame={className('nav-item',{active:type === item.type } ) }
 
 ![1779515027238](image/write/1779515027238.png)
+
+# 受控表单绑定:
+
+> 概念:使用React组件的状态(useState)控制表单的状态,
+
+<img src="image/write/1779607071227.png" alt="1779607071227" width:"100" height="auto"/>
+
+## 1.React状态值;
+
+> const [value,setValue] = useState('')
+
+2.通过value属性绑定状态,通过onChange属性绑定状态同步的函数;
+
+```jsx
+<input
+  type="text"
+  value=[value]
+  onChange={?(e) =>setValue(e.target.value)}
+```
