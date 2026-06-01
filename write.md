@@ -449,7 +449,6 @@ function APP ( ){
   onChange={?(e) =>setValue(e.target.value)}
 ```
 
-
 # React中获取DOM;
 
 在React组件中获取/操作DOM,需要使用useRef钩子函数,分为两步:
@@ -465,3 +464,33 @@ const inputRef = useRef(null)
 ## 2.在DOM可用时,通过inputRef.current拿到DOM对象;
 
 > console.log(inputRef.current)
+
+# B站评论案例-id处理和时间处理:
+
+> 1.rpid要求一个唯一的随机数id-uuid
+> 2.ctime要求以当前时间为标准,生成固定格式-dayjs
+
+在学vue的时候就已经用过了;
+
+> **下载**
+>
+> npm install uuid
+>
+> 使用:
+>
+> ```
+> import { v4 as uuidv4 } from "uuid";
+>
+> uuidv4(); // ⇨ 'ab16e731-6cee-424d-81a0-5929e9bdb0cc'
+> ```
+
+![1780148937599](image/write/1780148937599.png)
+
+
+## 下载dayjs:
+
+Day.js 是一个轻量的处理时间和日期的 JavaScript 库，和 Moment.js 的 API 设计保持完全一样。
+
+```
+npm install dayjs --save
+```

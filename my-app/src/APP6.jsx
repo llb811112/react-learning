@@ -3,6 +3,10 @@ import avatar from '/avatar.jpg'
 import { useState,useRef } from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
+import dayjs from 'dayjs'
+import {v4 as uuidv4 } from 'uuid'
+
+
 /**
  * 评论列表的渲染和操作
  *
@@ -14,7 +18,7 @@ import classNames from 'classnames'
 const defaultList = [
   {
     // 评论id
-    rpid: 3,
+    rpid: uuidv4(),
     // 用户信息
     user: {
       uid: '13258165',
@@ -28,7 +32,7 @@ const defaultList = [
     like: 88,
   },
   {
-    rpid: 2,
+    rpid: uuidv4(),
     user: {
       uid: '36080105',
       avatar: 'https://pic1.zhimg.com/v2-3493de7b36ee03bcb81965994c42d141_r.jpg?source=1940ef5c',
@@ -39,7 +43,7 @@ const defaultList = [
     like: 88,
   },
   {
-    rpid: 1,
+    rpid: uuidv4(),
     user: {
       uid: '30009257',
       avatar,
@@ -91,9 +95,22 @@ const App = () => {
     }
   };
   const subMit = () =>{
-    setContent([...content,{rpid:content.length+1,user,content:inputRef.current.value}]);
-    inputRef.current.value = '';
+    setContent([...content,
+      {
+        rpid: uuidv4(),
+        user:{
+          uid: user.uid,
+          avatar: user.avatar,
+          uname: user.uname,
+        },
+        content: inputRef.current.value,
+        ctime: dayjs(new Date()).format('MM-DD HH:mm'),
+        like: 0,
+      },])
+
+    
   }
+ 
   return (
     <div className="app"> 
       {/* 导航 Tab */}
@@ -201,5 +218,6 @@ const App = () => {
     </div>
   )
 }
+
 
 export default App;
