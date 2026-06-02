@@ -1,22 +1,38 @@
-// 在子组件中调用父组件中的函数并传递实参;-- 实现子传父
-function Child(props){
-  return(
-    <div>
-      <button onClick={()=>props.ClickHandle('我是中国人,我是React开发者')}>点击</button>
-    </div>
-  )
+import {useState} from 'react'
+
+function APP(){  
+    const [showText, setShowText] = useState('')
+    const getContent = (content) =>   {
+        console.log('父收到子的数据：', content)
+        setShowText(content);
+
+    }
+
+    return(
+        <>
+        <A onGetContent = {getContent}/>
+        <B showText= {showText}/>
+        </>
+    )
 }
-function APP(){
- const ClickHandle = (text) =>{
-  alert(text)
- }
-return(
-  <div>
-    <Child ClickHandle={ClickHandle}/>
-  </div>
-)
-
-
-
+function A(props){
+ const content = 'this is a'
+    return(
+        <>
+        <button onClick = {()=>props.onGetContent(content)}>send</button>
+        </>
+    )
 }
+
+function B(props){
+   
+    return(
+        <>
+        
+          <button>send</button>
+          <div>从app传过来的数据:{props.showText}</div>
+        </>
+    )
+}
+
 export default APP;

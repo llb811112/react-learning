@@ -503,8 +503,6 @@ npm install dayjs --save
 >
 > focus()
 
-
-
 # 组件通信;
 
 **理解组件通信**
@@ -522,9 +520,39 @@ A-E跨层通信
 
 > ***实现步骤:***
 
-1.父组件传递数据-在子组件标签上绑定属性 
+1.父组件传递数据-在子组件标签上绑定属性
 
 2.子组件接收数据-子组件通过props参数接收数据
+
+```jsx
+// 父传子
+function Son(props){
+    return (
+        <>
+        <div>{props.name}</div>
+        <div>this is son</div>
+
+        <div>{props.children}</div>  
+        {/* 传过去的直接就是 <div>this is children</div> */}
+        </>
+    )
+}
+//  ## 父传子-基础实现;
+function APP(){
+    const name = 'this is app'
+    return (
+        <>
+        <Son name={name}/> 
+        {/* 父传子 - 特殊的prop children; */}
+        <Son>
+            <div>this is children</div>
+        </Son>
+        </>
+    )
+}
+ 
+export default APP;
+```
 
 ### 父传子-props说明
 
@@ -549,9 +577,9 @@ A-E跨层通信
 
 > props
 >
->     children:`<span/>`
+> children:`<span/>`
 >
->     new entry:""
+> new entry:""
 
 ## 父子组件通信 -- 子传父;
 
@@ -580,3 +608,13 @@ return (
 ```
 
  在子组件中调用父组件中的函数并传递实参;
+
+## 使用状态提升实现兄弟组件通信;
+
+![1780399088250](image/write/1780399088250.png)
+
+实现思路:借助"状态提升"机制,通过父组件进行兄弟组件之间的数据传递
+
+> 1.通过子传父 A-> APP;
+>
+> 2.通过父传子 APP -> B;
