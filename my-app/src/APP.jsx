@@ -1,38 +1,33 @@
-import {useState} from 'react'
+// 使用Context机制跨层级组件通信;
+// app嵌套a A嵌套B
+import { createContext ,useContext} from 'react';
 
-function APP(){  
-    const [showText, setShowText] = useState('')
-    const getContent = (content) =>   {
-        console.log('父收到子的数据：', content)
-        setShowText(content);
-
-    }
-
+const SomeContext = createContext()
+function APP(){
+    const msg = 'this is app'
     return(
-        <>
-        <A onGetContent = {getContent}/>
-        <B showText= {showText}/>
-        </>
-    )
-}
-function A(props){
- const content = 'this is a'
-    return(
-        <>
-        <button onClick = {()=>props.onGetContent(content)}>send</button>
-        </>
+   <SomeContext.Provider value={msg}>
+   <div>我是APP</div>
+        <A />
+        </SomeContext.Provider>
     )
 }
 
-function B(props){
-   
+function A(){
+   return(
+    <>
+    <B />
+    <div>this is A</div>
+    </>
+   )
+}
+
+function B(){
+   const msg= useContext(SomeContext)
     return(
         <>
-        
-          <button>send</button>
-          <div>从app传过来的数据:{props.showText}</div>
+        <div>this is B   {msg}</div>
         </>
     )
 }
-
 export default APP;

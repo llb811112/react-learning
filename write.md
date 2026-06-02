@@ -618,3 +618,51 @@ return (
 > 1.通过子传父 A-> APP;
 >
 > 2.通过父传子 APP -> B;
+
+## 使用Context机制跨层级组件通信;
+
+> 实现步骤:
+> 1.使用createContext方法创建一个上下文对象Ctx
+> 2.在顶层组件(App)中通过Ctx.Provider组件提供数据
+> 3.在底层组件(B)中通过useContext钩子函数获取消费数据
+
+![1780405725287](image/write/1780405725287.png)
+
+![1780405733713](image/write/1780405733713.png)
+
+底层是相对的 只要形成了这种嵌套关系 那么就可以使用这套机制;
+
+```jsx
+// app嵌套a A嵌套B
+import { createContext ,useContext} from 'react';
+
+const SomeContext = createContext()
+function APP(){
+    const msg = 'this is app'
+    return(
+   <SomeContext.Provider value={msg}>
+   <div>我是APP</div>
+        <A />
+        </SomeContext.Provider>
+    )
+}
+
+function A(){
+   return(
+    <>
+    <B />
+    <div>this is A</div>
+    </>
+   )
+}
+
+function B(){
+   const msg= useContext(SomeContext)
+    return(
+        <>
+        <div>this is B   {msg}</div>
+        </>
+    )
+}
+export default APP;
+```
