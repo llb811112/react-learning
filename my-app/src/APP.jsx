@@ -1,22 +1,23 @@
-import { useState,useRef } from "react";
-function APP(){
-    const[value,setValue] = useState('')
-    const inputRef = useRef(null);
-    const showValue = () =>{
-      console.log(inputRef.current.value);
-    }
- return (
-    <div>
-     <input
-     type="text"
-     value={value}
-     onChange={(e)=>setValue(e.target.value)}
-     />
-     <p>{value}</p>
-    <input ref={inputRef} type="text" />
-   <button onClick={()=>showValue()}>Show Value</button>
-    </div>
-)
- 
+function Son(props){
+    return (
+        <>
+        <div>{props.name}</div>
+        <div>this is son</div>
+        </>
+    )
 }
+//  ## 父传子-基础实现;
+function APP(){
+    const name = 'this is app'
+    return (
+        <>
+        <Son name={name}/> 
+        </>
+    )
+}
+//  ***实现步骤:***
+
+// 1.父组件传递数据-在子组件标签上绑定属性 
+
+// 2.子组件接收数据-子组件通过props参数接收数据
 export default APP;

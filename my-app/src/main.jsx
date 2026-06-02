@@ -1,9 +1,9 @@
  
 import { createRoot } from 'react-dom/client'
-import APP6 from './APP6.jsx'
+import APP from './APP.jsx'
 
 createRoot(document.getElementById('root')).render(
  
-    <APP6 />
+    <APP/>
  
 )
