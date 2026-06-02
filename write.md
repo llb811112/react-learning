@@ -486,7 +486,6 @@ const inputRef = useRef(null)
 
 ![1780148937599](image/write/1780148937599.png)
 
-
 ## 下载dayjs:
 
 Day.js 是一个轻量的处理时间和日期的 JavaScript 库，和 Moment.js 的 API 设计保持完全一样。
@@ -494,3 +493,12 @@ Day.js 是一个轻量的处理时间和日期的 JavaScript 库，和 Moment.js
 ```
 npm install dayjs --save
 ```
+
+# B站评论案例 -- 清空内容并重新聚焦;
+
+> 1.清空内容-把控制input框的value状态设置为空串
+>
+> setcontent('')
+> 2.重新聚焦-拿到input的dom元素,调用focus方法
+>
+> focus()

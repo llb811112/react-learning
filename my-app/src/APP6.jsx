@@ -1,11 +1,10 @@
 import './App.scss'
 import avatar from '/avatar.jpg'
-import { useState,useRef } from 'react'
+import { useState, useRef } from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import {v4 as uuidv4 } from 'uuid'
-
+import { v4 as uuidv4 } from 'uuid'
 
 /**
  * 评论列表的渲染和操作
@@ -22,7 +21,7 @@ const defaultList = [
     // 用户信息
     user: {
       uid: '13258165',
-      avatar:'https://d.musicapp.migu.cn/prod/playlist-service/playListimg/402bdb81-c298-4582-b208-543920fb8b08.jpg',
+      avatar: 'https://d.musicapp.migu.cn/prod/playlist-service/playListimg/402bdb81-c298-4582-b208-543920fb8b08.jpg',
       uname: '周杰伦',
     },
     // 评论内容
@@ -54,6 +53,7 @@ const defaultList = [
     like: 66,
   },
 ]
+
 // 当前登录用户信息
 const user = {
   // 用户id
@@ -80,39 +80,51 @@ const tabs = [
 ]
 
 const App = () => {
-  const [content, setContent] = useState(defaultList);
+  const [content, setContent] = useState(defaultList)
+  const [inputValue, setInputValue] = useState('') // 输入框内容
+  const [type, setType] = useState('hot')
+  const inputRef = useRef(null)
 
-  const [tablist, setTablist] = useState(tabs);
-  const [type, setType] = useState('hot');
-  const inputRef = useRef(null);
-  function Select(type){
-    console.log('点击了', type);
-    setType(type);
-    if(type === 'hot'){
+  function Select(type) {
+    console.log('点击了', type)
+    setType(type)
+    if (type === 'hot') {
       setContent(_.orderBy(content, ['like'], ['desc']))
-    }else{
+    } else {
       setContent(_.orderBy(content, ['ctime'], ['desc']))
     }
-  };
-  const subMit = () =>{
-    setContent([...content,
+  }
+
+  const subMit = () => {
+    // 添加空值判断
+    if (!inputValue.trim()) {
+      alert('请输入评论内容')
+      return
+    }
+
+    setContent([
+      ...content,
       {
         rpid: uuidv4(),
-        user:{
+        user: {
           uid: user.uid,
           avatar: user.avatar,
           uname: user.uname,
         },
-        content: inputRef.current.value,
+        content: inputValue,
         ctime: dayjs(new Date()).format('MM-DD HH:mm'),
         like: 0,
-      },])
+      },
+    ])
 
-    
+    // 1.清空输入框
+    setInputValue('')
+    // 2.重新聚焦
+    inputRef.current?.focus()
   }
- 
+
   return (
-    <div className="app"> 
+    <div className="app">
       {/* 导航 Tab */}
       <div className="reply-navigation">
         <ul className="nav-bar">
@@ -123,23 +135,24 @@ const App = () => {
           </li>
           <li className="nav-sort">
             {/* 高亮类名： active */}
-            {tablist.map(item =>{
- 
-              return <span
-               key={item.type}
-               className={   classNames('nav-item',{active: type === item.type})}
-                onClick= {() =>Select(item.type)}
-                 >
+            {tabs.map((item) => {
+              return (
+                <span
+                  key={item.type}
+                  className={classNames('nav-item', { active: type === item.type })}
+                  onClick={() => Select(item.type)}
+                >
                   {item.text}
-              </span>
-            })} 
+                </span>
+              )
+            })}
           </li>
         </ul>
       </div>
 
       <div className="reply-wrap">
         {/* 发表评论 */}
-        <div className="box-normal"> 
+        <div className="box-normal">
           {/* 当前用户头像 */}
           <div className="reply-box-avatar">
             <div className="bili-avatar">
@@ -152,72 +165,56 @@ const App = () => {
               className="reply-box-textarea"
               placeholder="发一条友善的评论"
               ref={inputRef}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
             {/* 发布按钮 */}
             <div className="reply-box-send">
-              <div 
-              className="send-text"
-              onClick = {()=>{subMit()}}
-              >发布</div>
+              <div className="send-text" onClick={subMit}>
+                发布
+              </div>
             </div>
           </div>
         </div>
+
         {/* 评论列表 */}
-       
+        <div className="reply-list">
+          {content?.map((item) => (
+            <div key={item.rpid} className="reply-item">
+              {/* 头像 */}
+              <div className="root-reply-avatar">
+                <div className="bili-avatar">
+                  <img className="bili-avatar-img" alt="用户头像" src={item.user.avatar} />
+                </div>
+              </div>
 
-{/* 评论列表 */}
-<div className="reply-list">
-  {content.map(item => (
- 
-    <div key={item.rpid} className="reply-item">
-      {/* 头像 */}
-      <div className="root-reply-avatar">
-        <div className="bili-avatar">
-          <img
-            className="bili-avatar-img"
-            alt="用户头像"
-            src={item.user.avatar}
-          />
+              <div className="content-wrap">
+                {/* 用户名 */}
+                <div className="user-info">
+                  <div className="user-name">{item.user.uname}</div>
+                </div>
+                {/* 评论内容 */}
+                <div className="root-reply">
+                  <span className="reply-content">{item.content}</span>
+                  <div className="reply-info">
+                    {/* 评论时间 */}
+                    <span className="reply-time">{item.ctime}</span>
+                    {/* 点赞数量 */}
+                    <span className="reply-time">点赞数:{item.like}</span>
+                    {user.uid === item.user.uid && (
+                      <span className="delete-btn" onClick={() => setContent(content.filter((i) => i.rpid !== item.rpid))}>
+                        删除
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-
-      <div className="content-wrap">
-        {/* 用户名 */}
-        <div className="user-info">
-          <div className="user-name">
-            {item.user.uname}
-          </div>
-        </div>
-        {/* 评论内容 */}
-        <div className="root-reply">
-          <span className="reply-content">
-            {item.content}
-          </span>
-          <div className="reply-info">
-            {/* 评论时间 */}
-            <span className="reply-time">
-              {item.ctime}
-            </span>
-            {/* 评论数量 */}
-            <span className="reply-time">点赞数:{item.like}</span>
-            {user.uid === item.user.uid && <span className="delete-btn" onClick={() => setContent(content.filter(i => i.rpid !== item.rpid))}>删除</span>}
-          </div>
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
-
-
-
-
-
-
-
       </div>
     </div>
   )
 }
-
 
 export default App;

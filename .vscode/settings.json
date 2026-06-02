@@ -1,0 +1,14 @@
+{
+    // 关闭编辑器自动弹出建议
+"editor.quickSuggestions": {
+  "other": false,
+  "comments": false,
+  "strings": false
+},
+// 关闭输入 . 时自动弹出建议
+"editor.suggestOnTriggerCharacters": false,
+// 关闭按 Enter 键自动接受建议
+"editor.acceptSuggestionOnEnter": "off",
+// 关闭按 Tab 键自动接受建议（你之前已经关过了，这里再确认一下）
+"editor.tabCompletion": "off"
+}
