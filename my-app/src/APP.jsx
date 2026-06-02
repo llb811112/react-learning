@@ -1,23 +1,22 @@
-function Son(props){
-    return (
-        <>
-        <div>{props.name}</div>
-        <div>this is son</div>
-        </>
-    )
+// 在子组件中调用父组件中的函数并传递实参;-- 实现子传父
+function Child(props){
+  return(
+    <div>
+      <button onClick={()=>props.ClickHandle('我是中国人,我是React开发者')}>点击</button>
+    </div>
+  )
 }
-//  ## 父传子-基础实现;
 function APP(){
-    const name = 'this is app'
-    return (
-        <>
-        <Son name={name}/> 
-        </>
-    )
+ const ClickHandle = (text) =>{
+  alert(text)
+ }
+return(
+  <div>
+    <Child ClickHandle={ClickHandle}/>
+  </div>
+)
+
+
+
 }
-//  ***实现步骤:***
-
-// 1.父组件传递数据-在子组件标签上绑定属性 
-
-// 2.子组件接收数据-子组件通过props参数接收数据
 export default APP;

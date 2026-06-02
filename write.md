@@ -525,3 +525,58 @@ A-E跨层通信
 1.父组件传递数据-在子组件标签上绑定属性 
 
 2.子组件接收数据-子组件通过props参数接收数据
+
+### 父传子-props说明
+
+1. props可传递任意的数据
+   数字、字符串、布尔值、数组、对象、函数、JSX
+2. props是只读对象;
+   子组件只能读取props中的数据,不能直接进行修改,父组件的数据只能由父组件修改; --谁的数据谁进行修改;
+
+### 父传子 - 特殊的prop children;
+
+场景:当我们把内容嵌套在子组件标签中时,父组件会自动动在名为children的prop属性中接收该内容
+
+我们可以在子组件中直接嵌套内容 像这样:
+
+```jsx
+<Son>
+  <span> this is span </span>
+</Son>
+```
+
+这个的话就相当于 children属性;
+
+> props
+>
+>     children:`<span/>`
+>
+>     new entry:""
+
+## 父子组件通信 -- 子传父;
+
+![1780364249431](image/write/1780364249431.png)
+
+核心思路: 在子组件中调用父组件中的函数并传递参数;
+
+```jsx
+function APP (){
+const getMsg = (msg) => console.log(msg)
+return (
+<div>
+  <Son onGetMsg = {getMsg} />
+</div>
+)
+}
+
+   function Son ({onGetMsg}){
+   const sonMsg = 'this is son msg'
+   return(
+   <div>
+   <button onClick = {()=> onGetMsg(sonMsg)}>send</button>
+   </div>   
+)
+}
+```
+
+ 在子组件中调用父组件中的函数并传递实参;
