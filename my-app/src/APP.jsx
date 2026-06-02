@@ -1,33 +1,25 @@
-// 使用Context机制跨层级组件通信;
-// app嵌套a A嵌套B
-import { createContext ,useContext} from 'react';
+import { useEffect,useState } from 'react';
 
-const SomeContext = createContext()
+const URL = "http://geek.itheima.net/v1_0/channels"
 function APP(){
-    const msg = 'this is app'
-    return(
-   <SomeContext.Provider value={msg}>
-   <div>我是APP</div>
-        <A />
-        </SomeContext.Provider>
-    )
-}
+    const [content,setContent ] =  useState([])
+    useEffect(()=> { 
+     //额外的操作 获取频道列表;
+     async function getList (){
+        const res = await fetch(URL)
+        const list= await res.json()
+        console.log(list.data.channels)
+        setContent(list.data.channels)
+     }
+     getList()
+    }, [])
 
-function A(){
-   return(
-    <>
-    <B />
-    <div>this is A</div>
-    </>
-   )
-}
-
-function B(){
-   const msg= useContext(SomeContext)
     return(
         <>
-        <div>this is B   {msg}</div>
+  
+   {content.map( item=> <li key= {item.id}>{item.name}</li>)}
         </>
     )
 }
+
 export default APP;
