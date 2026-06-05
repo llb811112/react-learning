@@ -833,3 +833,31 @@ export default APP;
 ![1780575989110](image/write/1780575989110.png)
 
 抽象原则:App作为"智能组件"负责数据的获取,Item作为"UI组件"负责数据的渲染
+
+
+# 什么是Redux?
+
+Redux 是React最常用的 ***集中状态管理工具,***类似于Vue中的Pinia(Vuex),***可以独立于框架运行;***
+
+作用:通过集中管理的方式管理应用的状态
+
+不和任何框架绑定,不使用任何构建工具,使用纯Redux实现计数器
+
+![1780628290801](image/write/1780628290801.png)
+
+使用步骤:
+
+1. 定义一个 **reducer 函数** (根据当前想要做的修改返回一个新的状态)
+2. 使用 createStore 方法传入 reducer 函数生成一个 **store 实例对缘**
+3. 使用 store 实例的 **subscribe 方法**订阅数据的变化 (数据一旦变化，可以得到通知)
+4. 使用 store 实例的 **dispatch 方法提交 action 对象**触发数据变变化 (告诉 reducer 你想怎么改数据)
+5. 使用 store 实例的 **getState 方法**获取最新的状态数据更新到视图中
+
+## Redux管理数据流程梳理:
+
+![1780650748749](image/write/1780650748749.png)
+
+为了职责清晰,数据流向明确,Redux把整个数据修改的流程分分成了三个核心概念,分别是:state、action和reducer
+1.state-一个对象存放着我们管理的数据状态
+2.action-一个对象用来描述你想怎么改数据
+3.reducer-一个函数更具action的描述生成一个新的state
