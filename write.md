@@ -817,3 +817,19 @@ export default APP;
 
 1.只能在组件中或者其他自定义Hook函数中调用
 2.只能在组件的顶层调用,不能嵌套在if、for、其他函数中
+
+# 优化需求 -- 通过接口获取评论列表 (B站)
+
+1.使用json-server工具模拟接口服务，通过axios发送接口请求json-server是一个快速以。json文件作为数据源模拟接口服务的工具axios是一个广泛使用的前端请求库;
+
+> ```
+> npm install json-server
+> ```
+
+2.使用useEffect调用接口获取数据;
+
+# 优化需求-封装评论项ltem组件:
+
+![1780575989110](image/write/1780575989110.png)
+
+抽象原则:App作为"智能组件"负责数据的获取,Item作为"UI组件"负责数据的渲染
