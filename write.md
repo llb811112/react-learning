@@ -979,3 +979,15 @@ React 组件中修改 store 中的数据需要借助另外一个 hook 函数 - u
 ```jsx
        <button onClick={()=>{dispatch(increment())}}>  {count}     </button>
 ```
+
+### Redux与React--提交action参数;
+
+#### 需求说明:
+
+![1780718048935](image/write/1780718048935.png)
+
+组件中有两个按钮'add to 10'和'add to 20'可以直接把count值修改到对应的数字,目标count值是在组件中传递过去的,需要在提交action的时候传递参数;
+
+#### 提交 action 传参实现需求
+
+在 reducers 的同步修改方法中添加 action 对象参数，在调用 actionCreater 的时候传递参数，参数会被传递到 actidn 对象 payload 属性上

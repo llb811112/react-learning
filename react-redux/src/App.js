@@ -1,5 +1,5 @@
  import { useSelector, useDispatch } from 'react-redux'
-import { increment } from './store/modules/counterStore.js'
+import { increment,incrementByAmount} from './store/modules/counterStore.js'
 
 function App() {
      const dispatch = useDispatch()  // 获取 dispatch 函数
@@ -10,7 +10,9 @@ function App() {
        <button onClick={()=>{dispatch(increment())}}> 
  {count}
        </button>
-  
+  <button onClick = {()=>dispatch(incrementByAmount(10))}>
+    {count}
+  </button>
     </div>
   );
 }
