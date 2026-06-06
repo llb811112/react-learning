@@ -903,3 +903,79 @@ npm run start
 1. 通常集中状态管理的部分都会单独创建一个单独的 `store目录 `
 2. `应用通常会有很多个子store模块,所以创建一个`modules` 目录，在内部编写业务分类的子 store
 3. store 中的入口文件 index.js 的作用是组合 modules 中所有的子模块，并导出 store
+
+## Redux与React -- 实现counter
+
+### 整体路径熟悉
+
+![1780654356603](image/write/1780654356603.png)
+
+### 使用React Toolkit创建counterStore:
+
+counterStore.js
+
+```js
+import { createSlice } from '@reduxjs/toolkit'
+
+const initialState = { value: 0 }
+
+const counterStore = createSlice({
+  name: 'counter',
+  //初始化 state ;
+  initialState,
+  //修改状态的方法 同步方法 支持直接修改;
+  reducers: {
+    increment(state) {
+      state.value++
+    },
+    decrement(state) {
+      state.value--
+    },
+    incrementByAmount(state, action) {
+      state.value += action.payload
+    },
+  },
+})
+//解构出来actionCreater函数;
+export const { increment, decrement, incrementByAmount } = counterStore.actions
+//获取reducer
+const counterReducer = counterStore.reducer
+export default counterReducer
+```
+
+index.js
+
+```js
+import { configureStore } from "@reducjs/toolkit"
+import counterReducer from "./modules/counterReducer.js"
+
+const store = configureStore({
+    reducer:{
+        counter:counterReducer
+    }
+})
+export default store
+```
+
+### 为React注入store:
+
+react-redux 负责把 Redux 和 React 链接起来，内置 Provider 组件通过 store 参数把创建好的 store 实例注入到应用中, 链接正式建立
+
+```js
+import store from './store'
+import { Provider } from 'react-redux'
+const root = ReactDom.createRoot(document.getElementById('root'))
+root.render(
+<Provider store={store}>
+<APP/>
+<Provider>
+)
+```
+
+### React 组件修改 store 中的数据:
+
+React 组件中修改 store 中的数据需要借助另外一个 hook 函数 - useDispatch, 它的作用是生成提交 action 对象的dispatch 函数，使用样例如下:
+
+```jsx
+       <button onClick={()=>{dispatch(increment())}}>  {count}     </button>
+```

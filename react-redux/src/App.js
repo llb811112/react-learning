@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+ import { useSelector, useDispatch } from 'react-redux'
+import { increment } from './store/modules/counterStore.js'
 
 function App() {
+     const dispatch = useDispatch()  // 获取 dispatch 函数
+  const count  = useSelector(state => state.counter.value)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       我是中国人
+       <button onClick={()=>{dispatch(increment())}}> 
+ {count}
+       </button>
+  
     </div>
   );
 }
