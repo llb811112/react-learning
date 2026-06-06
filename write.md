@@ -1007,3 +1007,40 @@ React 组件中修改 store 中的数据需要借助另外一个 hook 函数 - u
 
 1. React Developer Tools
 2. Redux DevTools
+
+
+# 美团外卖 -- 案例演示和环境准备;
+
+![1780729085815](image/write/1780729085815.png)
+
+功能列表:
+
+商品列表和分类渲染
+
+添加商品
+
+购物车操作
+
+订单数量统计和高亮实现
+
+基本开发思路：使用 RTK (ReduxToolkit) 来管理应用状态，组件负责数据渲染和 dispatchaction
+
+## 准备并熟悉环境:
+
+1.克隆项目到本地
+
+> git clone http://git.itcast.cn/heimaqianduan/redux-meituan.git
+
+2.安装所有依赖
+
+> npm i
+
+3.启动mock服务(内置了json-server)
+
+> npm run serve
+
+## 实现步骤
+
+启动项目（mock服务+前端服务）
+使用RTK编写store（异步action）
+组件触发action并且渲染数据
