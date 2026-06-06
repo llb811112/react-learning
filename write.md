@@ -991,3 +991,14 @@ React 组件中修改 store 中的数据需要借助另外一个 hook 函数 - u
 #### 提交 action 传参实现需求
 
 在 reducers 的同步修改方法中添加 action 对象参数，在调用 actionCreater 的时候传递参数，参数会被传递到 actidn 对象 payload 属性上
+
+## Redux与React -- 异步状态操作
+
+1. 创建 store 的写法保持不变，配置好同步修改状态的方法
+2. 单独封装一个函数，在函数内部 return 一个新函数，在新函数中
+
+    2.1 封装异步请求获取数据
+
+    2.2 调用同步***actionCreater* **传入异步数据生成一个 action 对象，并使用 dispatch 提交
+
+3. 组件中 dispatch 的写法保持不变
