@@ -3,17 +3,22 @@ import axios from 'axios'
 const takeawayStore = createSlice({
     name:'takeaway',
     initialState:{
-        takeawayList:[]
+        takeawayList:[],
+        tableIndex:'0'
     },
     reducers:{
         setTakeaway(state,action){
             state.takeawayList = action.payload
+        },
+        // active
+        setTable(state,action){
+            state.tableIndex = action.payload
         }
     }
 })
 
 //异步请求;
-export const {  setTakeaway } = takeawayStore.actions
+export const {  setTakeaway, setTable } = takeawayStore.actions
 const url = 'http://localhost:3004/takeaway'
 const fetchTakeawayList = () =>{
     return async(dispatch)=>{
