@@ -1002,3 +1002,8 @@ React 组件中修改 store 中的数据需要借助另外一个 hook 函数 - u
     2.2 调用同步***actionCreater* **传入异步数据生成一个 action 对象，并使用 dispatch 提交
 
 3. 组件中 dispatch 的写法保持不变
+
+## Redux调试 - - devtools;
+
+1. React Developer Tools
+2. Redux DevTools
