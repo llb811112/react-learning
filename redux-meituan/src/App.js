@@ -13,7 +13,7 @@ const App = () => {
      useEffect(()=>{
     dispatch(fetchTakeawayList())
      },[dispatch])
-const { takeawayList = []} = useSelector(state => state.takeaway)
+const { takeawayList = [],tableIndex} = useSelector(state => state.takeaway)
 console.log(takeawayList)
   return (
     <div className="home">
@@ -28,8 +28,9 @@ console.log(takeawayList)
           <div className="list-content">
             <div className="goods-list">
               {/* 外卖商品列表 */}
-              {takeawayList.map(item => {
+              {takeawayList.map((item,index) => {
                 return (
+                  tableIndex === index &&  
                   <FoodsCategory
                     key={item.tag}
                     // 列表标题

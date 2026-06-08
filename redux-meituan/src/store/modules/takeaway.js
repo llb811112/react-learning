@@ -4,7 +4,7 @@ const takeawayStore = createSlice({
     name:'takeaway',
     initialState:{
         takeawayList:[],
-        tableIndex:'0'
+        tableIndex: 0
     },
     reducers:{
         setTakeaway(state,action){

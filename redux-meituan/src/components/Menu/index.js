@@ -8,11 +8,12 @@ const Menu = () => {
 
 const dispatch = useDispatch()  // 获取 dispatch 函数
 useEffect(()=>{
-    dispatch( setTable())
+    dispatch( setTable(0))
      },[dispatch])
 const { takeawayList = [],tableIndex} = useSelector(state => state.takeaway)
 console.log(takeawayList)
   const menus = takeawayList.map(item => ({ tag: item.tag, name: item.name }))
+
   return (
     <nav className="list-menu">
       {/* 添加active类名会变成激活状态 */}

@@ -834,7 +834,6 @@ export default APP;
 
 抽象原则:App作为"智能组件"负责数据的获取,Item作为"UI组件"负责数据的渲染
 
-
 # 什么是Redux?
 
 Redux 是React最常用的 ***集中状态管理工具,***类似于Vue中的Pinia(Vuex),***可以独立于框架运行;***
@@ -997,17 +996,15 @@ React 组件中修改 store 中的数据需要借助另外一个 hook 函数 - u
 1. 创建 store 的写法保持不变，配置好同步修改状态的方法
 2. 单独封装一个函数，在函数内部 return 一个新函数，在新函数中
 
-    2.1 封装异步请求获取数据
+   2.1 封装异步请求获取数据
 
-    2.2 调用同步***actionCreater* **传入异步数据生成一个 action 对象，并使用 dispatch 提交
-
+   2.2 调用同步***actionCreater* **传入异步数据生成一个 action 对象，并使用 dispatch 提交
 3. 组件中 dispatch 的写法保持不变
 
 ## Redux调试 - - devtools;
 
 1. React Developer Tools
 2. Redux DevTools
-
 
 # 美团外卖
 
@@ -1048,3 +1045,25 @@ React 组件中修改 store 中的数据需要借助另外一个 hook 函数 - u
 组件触发action并且渲染数据
 
 ## 美团外卖-点击分类激活交互实现:
+
+***Tab切换类交互***
+
+> 记录当前点击项
+> (activelndex)
+
+> 动态控制激活类名
+> (activelndex=== index)
+
+### 步骤分析:
+
+使用 RTK 编写管理 activelndex
+
+组件中点击时触发 action 更改 activelndex
+
+动态控制激活类名显示
+
+## 美团外卖--商品列表切换显示;
+
+条件渲染:控制对应项显示;
+
+activeIndex === index && 视图
