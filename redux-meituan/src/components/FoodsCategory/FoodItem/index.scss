@@ -132,4 +132,18 @@
     line-height: 14px;
     margin-right: 1px;
   }
+  .plus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: #ffcb47;
+    border-radius: 6px;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+  }
 }

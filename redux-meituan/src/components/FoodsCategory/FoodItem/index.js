@@ -1,4 +1,6 @@
 import './index.scss'
+import {  useDispatch } from 'react-redux'
+import { addCart } from '../../../store/modules/takeaway.js'
 
 const Foods = ({
   id,
@@ -10,9 +12,12 @@ const Foods = ({
   month_saled,
   like_ratio_desc,
   price,
-  tag,
-  count
+  tag
 }) => {
+  const dispatch = useDispatch()
+  // 新增：从 Redux cartList 中获取当前商品的 count
+  
+ 
 
   return (
     <dd className="cate-goods">
@@ -38,7 +43,21 @@ const Foods = ({
             {price}
           </div>
           <div className="goods-count">
-            <span className="plus"></span>
+            <span className="plus"
+            onClick={() => dispatch(addCart({
+              id,
+              picture,
+              name,
+              unit,
+              description,
+              food_tag_list,
+              month_saled,
+              like_ratio_desc,
+              price,
+              tag,
+              count: 1
+            }))}
+            >+</span>
           </div>
         </div>
       </div>
