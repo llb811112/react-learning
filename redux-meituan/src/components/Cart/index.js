@@ -1,27 +1,38 @@
 import classNames from 'classnames'
 import Count from '../Count'
 import './index.scss'
-
+import { useSelector } from 'react-redux'
 const Cart = () => {
-  const cart = []
+  const { cartList } = useSelector(state => state.takeaway)
+ console.log(cartList)
+ //计算总价 
+ const totalPrice = cartList.reduce((a,c)=> a + c.price * c.count,0)
+
   return (
     <div className="cartContainer">
       {/* 遮罩层 添加visible类名可以显示出来 */}
       <div
         className={classNames('cartOverlay')}
       />
-      <div className="cart">
+      <div className={classNames('cart', { fill: cartList.length > 0 })}>
         {/* fill 添加fill类名可以切换购物车状态*/}
         {/* 购物车数量 */}
-        <div className={classNames('icon')}>
-          {true && <div className="cartCornerMark">{0}</div>}
+<div className="icon">
+          <svg
+            className="cartIconSvg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2Zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2ZM6.2 6l.94 2h10.71c.84 0 1.46.82 1.22 1.62l-1.35 4.91A1.5 1.5 0 0 1 16.3 15H8.53c-.67 0-1.28-.4-1.53-1.02L4.12 4H2V2h3.43l.77 1.73L7.04 6H20v2H6.2Z" />
+          </svg>
+          {true && <div className="cartCornerMark">{cartList.length}</div>}
         </div>
         {/* 购物车价格 */}
         <div className="main">
           <div className="price">
             <span className="payableAmount">
               <span className="payableAmountUnit">¥</span>
-              {0.00}
+              {totalPrice}
             </span>
           </div>
           <span className="text">预估另需配送费 ¥5</span>
@@ -44,7 +55,7 @@ const Cart = () => {
 
         {/* 购物车列表 */}
         <div className="scrollArea">
-          {cart.map(item => {
+          {cartList.map(item => {
             return (
               <div className="cartItem" key={item.id}>
                 <img className="shopPic" src={item.picture} alt="" />
