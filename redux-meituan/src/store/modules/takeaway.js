@@ -31,12 +31,26 @@ addCart(state, action) {
  
 state.cartList.push(action.payload);
   }
-}
+},
+    increaseCount(state,action){
+        const item = state.cartList.find(item => item.id === action.payload.id)
+        item.count++
+    },
+    decreaseCount(state,action){
+        const item = state.cartList.find(item => item.id === action.payload.id)
+        if(item.count === 0 ){
+            return
+        }
+        item.count--
+    },
+    clearCart(state){
+        state.cartList = []
+    }
     }
 })
 
 //异步请求;
-export const {  setTakeaway, setTable, addCart } = takeawayStore.actions
+export const {  setTakeaway, setTable, addCart,increaseCount, decreaseCount,clearCart} = takeawayStore.actions
 const url = 'http://localhost:3004/takeaway'
 const fetchTakeawayList = () =>{
     return async(dispatch)=>{
