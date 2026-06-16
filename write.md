@@ -1068,8 +1068,6 @@ React 组件中修改 store 中的数据需要借助另外一个 hook 函数 - u
 
 activeIndex === index && 视图
 
-
-
 # JavaScript reduce 超清晰笔记（直接抄，好记好用）
 
 ## 一、reduce 是什么
@@ -1147,3 +1145,26 @@ cartList.reduce((total, item) => {
 - reduce：**一行直接出结果，更干净**
 
 ---
+
+
+
+
+# ReactRouter: https://reactrouter.com
+
+## 什么是前端路由:
+
+一个路径 path 对应一个组件 component 当我们在浏览器中访问一个 path 的时候，path 对应的组件会在页面中进行渲染
+
+## 创建路由开发环境
+
+使用路由我们还是采用 CRA 创建项目的方式进行基础环境配置
+
+1. 创建项目并安装所有依赖;
+   > npx create-react-app react-router-pro  npm i
+   >
+2. 安装最新的ReactRouter包;
+   > npm i react-router-dom
+   >
+3. 启动项目;
+   > npm run start
+   >
