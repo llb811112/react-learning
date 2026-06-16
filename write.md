@@ -1219,3 +1219,19 @@ export default Login;
 > const [params] = useSearchParams
 >
 > let id = params.get('id')
+
+### params传参:
+
+> navigate('/article/0001')
+
+> const params = useParams()
+>
+> let id = params.id
+
+路由配置文件中 
+
+> {
+>
+> path:'article/:id'
+>
+> }

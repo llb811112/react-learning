@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     element:<Login />
   },
     {
-    path:'/index',
+    path:'/index/:id',
     element:<Index/>
   },
    {

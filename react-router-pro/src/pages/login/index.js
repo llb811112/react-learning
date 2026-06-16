@@ -7,6 +7,7 @@ function Login(){
         <div>hello,我是首页</div>
         <Link to="/index">返回首页</Link>
              <button onClick={() => navigate('/index?id=001&name=jack')}>跳转至首页</button>
+                          <button onClick={() => navigate('/index/001')}>跳转至首页</button>
         </>
     )
 }
