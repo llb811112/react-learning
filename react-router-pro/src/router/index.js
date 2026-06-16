@@ -1,5 +1,5 @@
-import Index from '../pages/Index'
-import Login from '../pages/Login'
+import Index from '../pages/index/index'
+import Login from '../pages/login/index'
 
 import { createBrowserRouter } from 'react-router'
 

@@ -15,6 +15,7 @@ root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
+  
   <RouterProvider router={router}></RouterProvider>
   </>
 );

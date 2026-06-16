@@ -1168,3 +1168,40 @@ cartList.reduce((total, item) => {
 3. 启动项目;
    > npm run start
    >
+
+## 什么是路由导航
+
+路由系统中的多个路由之间需要进行路由跳转，并且在跳转的同时有可能需要传递参数进行通信
+
+### 声明式导航
+
+声明式导航是指通过在模版中通过``<Link/>``` 组件描述出要跳转转到哪里去，比如后台管理系统的左侧菜单通常使用这种方式进行
+
+`<Link to="/article">文章</Link>    https://reactrouter.com/start/framework/navigating`
+
+语法说明：通过给组件的 ***to 属性指定要跳转到路由 path***, 组件会被渲染为浏览器支持的 a 链接，如果需要传参直接***通过字符串拼接的方式拼接***参数即可
+
+link标签相当于a标签;
+
+### 编程式导航
+
+编程式导航是指通过 'useNavigate' 钩子得到导航方法，然后通过调用方法以命令式的形式进行路由跳转，比如想在登录请求完毕之后跳转就可以选择这种方式，更加灵活
+
+```jsx
+import { useNavigate } from "react-router-dom";
+
+const Login: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      我是登录页
+      <button onClick={() => navigate('/article')}>跳转至文章</button>
+    </div>
+  );
+};
+
+export default Login;
+```
+
+语法说明：通过调用 navigate 方法传入地址 path 实现跳转
