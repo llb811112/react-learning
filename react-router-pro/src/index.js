@@ -1,25 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter } from 'react-router'
+ 
 import { RouterProvider } from 'react-router/dom'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-const router = createBrowserRouter([
-  {
-    path:'/login',
-    element:<div>hello,登录页</div>
-  },
-    {
-    path:'/index',
-    element:<div>hello,首页</div>
-  },
-   {
-    path:'/',
-    element:<div>hello,默认页</div>
-  },
-  
-])
+import { router } from './router';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
