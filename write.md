@@ -1205,3 +1205,17 @@ export default Login;
 ```
 
 语法说明：通过调用 navigate 方法传入地址 path 实现跳转
+
+## 路由导航传参:
+
+### searchParams传参:
+
+路由跳转;
+
+> navigate('/article?id=1001&name=jack')
+
+目标路由:来接受参数;
+
+> const [params] = useSearchParams
+>
+> let id = params.get('id')
