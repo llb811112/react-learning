@@ -12,7 +12,7 @@ const Cart = () => {
  console.log(cartList)
    // 点击清空前弹窗确认
 const handleClear = () => {
-  if(cartList.length>0)
+  if(cartList.length>0){
   Modal.confirm({
     title: '清空购物车',
     content: '确定要清空所有购物车商品吗？',
@@ -21,22 +21,30 @@ const handleClear = () => {
     okType: 'danger',
     onOk: () => {
       dispatch(clearCart())
+     setPopuShow(false)
     }
-  })
+  })}
 }
  //计算总价 
  const totalPrice = cartList.reduce((a,c)=> a + c.price * c.count,0)
  const [popupShow , setPopuShow ] = useState(false)
+ const onShow = ()=>{
+  if(cartList.length>0){
+    setPopuShow(!popupShow)
+  }
+ }
   return (
     <div className="cartContainer">
       {/* 遮罩层 添加visible类名可以显示出来 */}
-      <div
-        className={classNames('cartOverlay')}
-      />
+      {  popupShow &&
+        <div
+        className={classNames('cartOverlay visible')}
+        onClick={()=>   setPopuShow(false)}
+      />}
       <div className={classNames('cart', { fill: cartList.length > 0 })}>
         {/* fill 添加fill类名可以切换购物车状态*/}
         {/* 购物车数量 */}
-      <div className="icon" onClick = {()=>setPopuShow(!popupShow)}>
+      <div className="icon" onClick = {onShow}>
           <svg
             className="cartIconSvg"
             viewBox="0 0 24 24"

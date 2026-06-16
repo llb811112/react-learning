@@ -21,12 +21,13 @@ const Cart = () => {
     }
   }
   return (
-    <div className="cartContainer">
+    <>
       {/* 遮罩层 添加visible类名可以显示出来 */}
       <div
         className={classNames('cartOverlay', visible && 'visible')}
         onClick={() => setVisible(false)}
       />
+      <div className="cartContainer">
       <div className="cart">
         {/* fill 添加fill类名购物车高亮*/}
         {/* 购物车数量 */}
