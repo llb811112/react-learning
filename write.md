@@ -1235,3 +1235,48 @@ export default Login;
 > path:'article/:id'
 >
 > }
+
+## ReactRouter - 嵌套路由配置:
+
+### 什么是嵌套路由
+
+在一级路由中又内嵌了其他路由，这种关系就叫做嵌套路各由，嵌套至一级路由内的路由又称作二级路由，例如
+
+![1781609836705](image/write/1781609836705.png)
+
+### 嵌套路由配置
+
+实现步骤：
+1.使用children属性配置路由嵌套关系
+2.使用```````<Outlet/>``````组件配置二级路由渲染位置
+
+### ReactRouter - 默认二级路由
+
+场景和配置方式
+当访问的是一级路由时，默认的二级路由组件可以得到渲染，只需要在二级路由的位置去掉path，设置index属性为true
+
+## ReactRouter-404 路由配置
+
+实现步骤:
+
+1. 准备一个 NotFound 组件
+2. 在路由表数组的末尾，以 * 号作为路由 path 配置路由
+
+> {
+>
+> path:'*',
+>
+> element:`<NotFound/>`
+>
+> }
+
+## ReactRouter - 俩种路由模式:
+
+各个主流框架的路由常用的路由模式有俩种，history 模式和 hash 模式，ReactRouter 分别由 createBrowerRouter 和createHashRouter 函数负责创建
+
+| 路由模式 | url表现     | 底层原理                   | 是否需要后端支持 |
+| -------- | ----------- | -------------------------- | ---------------- |
+| history  | url/login   | history对象+ pushState事件 | 需要             |
+| hash     | url/#/login | 监听 hashChange事件        | 不需要           |
+
+** hash 模式“不需要后端支持”，是因为它的路由变化完全发生在浏览器端，不会向服务器发起新的 HTTP 请求。**
