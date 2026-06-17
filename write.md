@@ -1555,3 +1555,18 @@ RTK                                                                             
 state- billList                                                                           dispatch 异步action
 reducer -setBillList
 异步action
+
+## 如果想同时启动mock数据可以在package.json文件中进行配置
+
+```js
+  "scripts": {
+    "start": "craco start & npm run server",
+ 
+    "server":"./server/data.json -port 8888"
+  },
+```
+
+## 记账本 - TabBar 功能实现;
+
+需求理解和实现方式
+需求：使用antD的TabBar标签栏组件进行布局以及路由的切换
