@@ -1146,9 +1146,6 @@ cartList.reduce((total, item) => {
 
 ---
 
-
-
-
 # ReactRouter: https://reactrouter.com
 
 ## 什么是前端路由:
@@ -1175,7 +1172,7 @@ cartList.reduce((total, item) => {
 
 ### 声明式导航
 
-声明式导航是指通过在模版中通过``<Link/>``` 组件描述出要跳转转到哪里去，比如后台管理系统的左侧菜单通常使用这种方式进行
+声明式导航是指通过在模版中通过````<Link/>````` 组件描述出要跳转转到哪里去，比如后台管理系统的左侧菜单通常使用这种方式进行
 
 `<Link to="/article">文章</Link>    https://reactrouter.com/start/framework/navigating`
 
@@ -1228,7 +1225,7 @@ export default Login;
 >
 > let id = params.id
 
-路由配置文件中 
+路由配置文件中
 
 > {
 >
@@ -1248,7 +1245,7 @@ export default Login;
 
 实现步骤：
 1.使用children属性配置路由嵌套关系
-2.使用```````<Outlet/>``````组件配置二级路由渲染位置
+2.使用`````````<Outlet/>````````组件配置二级路由渲染位置
 
 ### ReactRouter - 默认二级路由
 
@@ -1281,7 +1278,6 @@ export default Login;
 
 ** hash 模式“不需要后端支持”，是因为它的路由变化完全发生在浏览器端，不会向服务器发起新的 HTTP 请求。**
 
-
 # 实例-记账:
 
 ## 环境搭建
@@ -1294,3 +1290,208 @@ export default Login;
    4.class 类名处理 - classnames
 4. 移动端组件库 - antd-mobile
 5. 请求插件 - axios
+
+## 别名路径配置:
+
+1. 路径解析配置 (webpack), **把 @/ 解析为 src/**
+2. 路径联想配置 (VsCode), **VsCode 在输入 @/ 时，自动联想出来对应的 src / 下的子级目录**
+
+### 方案一：craco（适用于 Create React App---路径解析配置(webpack) -- craco插件;
+
+路径解析配置
+
+CRA 本身把 webpack 配置包装到了黑盒里无法直接修改，需要借助一个插件 - craco
+
+#### 配置步骤:
+
+#### 1. 安装依赖
+
+```bash
+npm install @craco/craco --save
+# 或
+yarn add @craco/craco
+```
+
+#### 2. 修改 `package.json` 中的 scripts
+
+```json
+"scripts": {
+  "start": "craco start",
+  "build": "craco build",
+  "test": "craco test"
+}
+```
+
+#### 3. 在项目根目录创建 `craco.config.js`
+
+```javascript
+const path = require('path');
+
+module.exports = {
+  webpack: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      // 如需更多别名，继续添加：
+      // '@components': path.resolve(__dirname, 'src/components'),
+      // '@hooks': path.resolve(__dirname, 'src/hooks'),
+    },
+  },
+};
+```
+
+#### 4. 配置 TypeScript 路径识别（如使用 TS）
+
+在 `tsconfig.json` 中添加：
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
+```
+
+如果是 JavaScript 项目，则写在 `jsconfig.json` 中，内容相同。
+
+---
+
+### 方案二：Vite（适用于 Vite + React）
+
+#### 1. 安装 Node.js 类型定义（TypeScript 项目需要）
+
+```bash
+npm install -D @types/node
+```
+
+#### 2. 在 `vite.config.ts` 中配置别名
+
+```typescript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+});
+```
+
+#### 3. 配置 TypeScript 路径识别
+
+在 `tsconfig.json` 中添加：
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
+```
+
+---
+
+#### 使用示例
+
+配置完成后，在组件中即可使用别名导入：
+
+```javascript
+// ❌ 之前（相对路径）
+import Button from '../../../components/Button';
+import { formatDate } from '../../../utils/date';
+
+// ✅ 之后（别名路径）
+import Button from '@/components/Button';
+import { formatDate } from '@/utils/date';
+```
+
+---
+
+### 路径联想配置(VsCode) -- jsconfig.json;
+
+在 VS Code 中，通过 `jsconfig.json` 或 `tsconfig.json` 可以让编辑器识别路径别名，实现 **智能提示** 、**自动补全**和**跳转定义**功能。
+
+#### 完整配置示例
+
+在项目**根目录**创建 `jsconfig.json` 文件：
+
+```
+{
+  "compilerOptions": {
+    // 基准目录，用于解析 paths
+    "baseUrl": ".",
+
+    // 路径别名映射
+    "paths": {
+      // 将 '@/*' 映射到 'src/*'
+      "@/*": ["src/*"],
+
+      // 可以添加更多别名
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@assets/*": ["src/assets/*"],
+      "@styles/*": ["src/styles/*"],
+      "@api/*": ["src/api/*"],
+      "@types/*": ["src/types/*"]
+    },
+
+    // 目标 JS 版本（可选）
+    "target": "ESNext",
+
+    // 模块解析策略（可选）
+    "moduleResolution": "node",
+
+    // 允许从 node_modules 解析（可选）
+    "resolveJsonModule": true
+  },
+
+  // 指定包含的文件/目录
+  "include": ["src/**/*"],
+
+  // 排除的文件/目录
+  "exclude": ["node_modules", "build", "dist", "coverage"]
+}
+```
+
+---
+
+#### 配置字段说明
+
+| 字段                           | 说明                                           |
+| ------------------------------ | ---------------------------------------------- |
+| **`baseUrl`**          | 路径解析的基准目录，`"."` 表示项目根目录     |
+| **`paths`**            | 路径别名映射，键为别名模式，值为实际路径数组   |
+| **`include`**          | 指定哪些文件被项目包含，用于智能提示范围       |
+| **`exclude`**          | 排除不需要解析的目录，提升性能                 |
+| **`target`**           | 指定 ECMAScript 目标版本                       |
+| **`moduleResolution`** | 模块解析策略，`"node"` 模拟 Node.js 解析方式 |
+
+---
+
+#### 配置后效果
+
+配置完成后，在 VS Code 中导入文件时：
+
+**javascript**
+
+```
+// 输入时触发智能提示
+import Button from '@/components/Button';
+//                    ↑ 输入 @/ 后会联想出 components、utils、hooks 等目录
+
+import { formatDate } from '@/utils/date';
+//                         ↑ 可跳转至 src/utils/date.js 文件
+
+import useFetch from '@hooks/useFetch';
+//                  ↑ 悬停显示类型信息（如有 JSDoc）
+```
