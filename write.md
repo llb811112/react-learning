@@ -1546,3 +1546,12 @@ json-server 是一个 node 包，可以在不到 30 秒内获得零编码的完�
 2. 局部;
    > .purple-theme{ --adm-color-primary: #a062d4; }
    >
+
+## 记账本 - Redux 管理账目列表;
+
+### 基于 RTK 管理账目列表;
+
+RTK                                                                                             component
+state- billList                                                                           dispatch 异步action
+reducer -setBillList
+异步action
