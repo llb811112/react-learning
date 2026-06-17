@@ -1280,3 +1280,17 @@ export default Login;
 | hash     | url/#/login | 监听 hashChange事件        | 不需要           |
 
 ** hash 模式“不需要后端支持”，是因为它的路由变化完全发生在浏览器端，不会向服务器发起新的 HTTP 请求。**
+
+
+# 实例-记账:
+
+## 环境搭建
+
+使用 CRA 创建项目，并安装必要依赖，包括下列基础包
+
+1. Redux 状态管理 -@reduxjs/toolkit、react-redux
+2. 路由 - react-router-dom
+3. 时间处理 - dayjs
+   4.class 类名处理 - classnames
+4. 移动端组件库 - antd-mobile
+5. 请求插件 - axios
