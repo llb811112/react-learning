@@ -1172,7 +1172,7 @@ cartList.reduce((total, item) => {
 
 ### 声明式导航
 
-声明式导航是指通过在模版中通过````<Link/>````` 组件描述出要跳转转到哪里去，比如后台管理系统的左侧菜单通常使用这种方式进行
+声明式导航是指通过在模版中通过`````<Link/>`````` 组件描述出要跳转转到哪里去，比如后台管理系统的左侧菜单通常使用这种方式进行
 
 `<Link to="/article">文章</Link>    https://reactrouter.com/start/framework/navigating`
 
@@ -1245,7 +1245,7 @@ export default Login;
 
 实现步骤：
 1.使用children属性配置路由嵌套关系
-2.使用`````````<Outlet/>````````组件配置二级路由渲染位置
+2.使用``````````<Outlet/>`````````组件配置二级路由渲染位置
 
 ### ReactRouter - 默认二级路由
 
@@ -1277,6 +1277,7 @@ export default Login;
 | hash     | url/#/login | 监听 hashChange事件        | 不需要           |
 
 ** hash 模式“不需要后端支持”，是因为它的路由变化完全发生在浏览器端，不会向服务器发起新的 HTTP 请求。**
+
 
 # 实例-记账:
 
@@ -1495,3 +1496,27 @@ import { formatDate } from '@/utils/date';
 import useFetch from '@hooks/useFetch';
 //                  ↑ 悬停显示类型信息（如有 JSDoc）
 ```
+
+
+## Mock假数据;
+
+1. 前端直接写假数据    ----    纯静态，没有服务
+2. 自研 Mock 平台  ---  成本太高
+3. ***json-server等工具 --- 有服务,成本低;***
+
+### json-server 实现数据 Mock
+
+json-server 是一个 node 包，可以在不到 30 秒内获得零编码的完整的 Mock 服务;
+
+#### 实现步骤:
+
+1. 项目中安装 json-server
+
+> npm i -D json-server
+
+2. 准备一个 json 文件
+3. 添加启动命令
+
+> "server":"json-server ./server/data.json --port 8888"
+
+4. 访问接口进行测试
