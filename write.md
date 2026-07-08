@@ -1172,7 +1172,7 @@ cartList.reduce((total, item) => {
 
 ### 声明式导航
 
-声明式导航是指通过在模版中通过```````<Link/>```````` 组件描述出要跳转转到哪里去，比如后台管理系统的左侧菜单通常使用这种方式进行
+声明式导航是指通过在模版中通过````````<Link/>````````` 组件描述出要跳转转到哪里去，比如后台管理系统的左侧菜单通常使用这种方式进行
 
 `<Link to="/article">文章</Link>    https://reactrouter.com/start/framework/navigating`
 
@@ -1245,7 +1245,7 @@ export default Login;
 
 实现步骤：
 1.使用children属性配置路由嵌套关系
-2.使用````````````<Outlet/>```````````组件配置二级路由渲染位置
+2.使用`````````````<Outlet/>````````````组件配置二级路由渲染位置
 
 ### ReactRouter - 默认二级路由
 
@@ -1572,3 +1572,5 @@ reducer -setBillList
 需求：使用antD的TabBar标签栏组件进行布局以及路由的切换
 
 ![1781764492683](image/write/1781764492683.png)
+
+111
