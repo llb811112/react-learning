@@ -9,7 +9,7 @@ import './index.scss'
 
 const tabs = [
   {
-    key: '/',
+    key: '/month',
     title: '月度账单',
     icon: <BillOutline />,
   },
