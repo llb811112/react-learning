@@ -1,10 +1,19 @@
  import { NavBar , DatePicker } from 'antd-mobile'
 import { useState  } from 'react';
 import classNames from 'classnames';
+import dayjs from 'dayjs'; 
  import './index.scss'
  function Month(){
   const [show,setShow] = useState(false);
- 
+  const [ billDate , setBillDate] = useState('2024 | 7月账单')
+  const onConfirm = (date) => {
+    setShow(false)
+    //其他逻辑;
+    console.log(date)
+  const formattedDate = dayjs(date).format('YYYY | M月账单');
+  setBillDate(formattedDate);
+
+  }
   return(
     <>
  
@@ -19,7 +28,7 @@ import classNames from 'classnames';
            onClick={() => setShow(!show)}
           >
             <span className="text">
-              2023 | 3月账单
+              {billDate}
             </span>
             {/* 控制expand是否存在 */}
             <span className={classNames('arrow' ,show && 'expand')}></span>
@@ -46,7 +55,7 @@ import classNames from 'classnames';
           precision="month"
           visible={show} 
           onCancel={()=>{setShow(false)}}
-          onConfirm={()=>{setShow(false)}}  
+          onConfirm={onConfirm}  
           onClose={()=>{setShow(false)}}
           max={new Date()}
           />
