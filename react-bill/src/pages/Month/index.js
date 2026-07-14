@@ -1,8 +1,13 @@
  import { NavBar , DatePicker } from 'antd-mobile'
+import { useState  } from 'react';
+import classNames from 'classnames';
  import './index.scss'
  function Month(){
+  const [show,setShow] = useState(false);
+ 
   return(
     <>
+ 
     <div className='monthlyBill'>
       <NavBar className="nav" backArrow={false}>
         月度收支
@@ -10,11 +15,14 @@
       <div className="content">
         <div className="header">
           {/* 时间切换区域 */}
-          <div className="date">
+          <div className="date"
+           onClick={() => setShow(!show)}
+          >
             <span className="text">
               2023 | 3月账单
             </span>
-            <span className='arrow expand'></span>
+            {/* 控制expand是否存在 */}
+            <span className={classNames('arrow' ,show && 'expand')}></span>
           </div>
           {/* 统计区域 */}
           <div className='twoLineOverview'>
@@ -36,7 +44,10 @@
           className="kaDate"
           title="记账日期"
           precision="month"
-          visible={false}
+          visible={show} 
+          onCancel={()=>{setShow(false)}}
+          onConfirm={()=>{setShow(false)}}  
+          onClose={()=>{setShow(false)}}
           max={new Date()}
           />
         </div>
