@@ -8,9 +8,18 @@ const router = createBrowserRouter(
         { path: "/", 
           element:<Layout/>,
           children:[
-           {
+            {
+                index:true,
+                element:<Month/>
+            },
+           {        
+    
+            // index 路由不能有 path 索引路由不允许存在 path；仅当父路由精准匹配、且无其他子路由匹配时才渲染。
+
             path:'month',
-            element:<Month/>
+            element:<Month/>,
+    
+
            },
            {
             path:'year',
