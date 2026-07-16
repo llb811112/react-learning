@@ -11,22 +11,25 @@ const Daybill = ({ date, daylist }) => {
     <div className={classNames('dailybill')}>
       <div className='header'>
         <div className='dataIcon'>
-          <span className='date'>{dayjs(date).format('YYYY-MM-DD')}</span>
+          <span className='date'>{dayjs(date).format('MM月DD日')}</span>
           <span className={classNames('arrow', { 'rotate': visible })} onClick={() => setVisible(!visible)}>
           </span>
         </div>
         <div className='onelineoverview'>
-          <div className='pay'>
-            <span className='money'>{daylist.filter(item => item.type === 'pay').reduce((pre, cur) => pre + cur.money, 0)}</span>
+          <div className='pay'>      
             <span className='type'>支出</span>
+            <span className='money'>{daylist.filter(item => item.type === 'pay').reduce((pre, cur) => pre + cur.money, 0)}</span>
+      
           </div>
           <div className='income'>
+              <span className='type'>收入</span>
             <span className='money'>{daylist.filter(item => item.type === 'income').reduce((pre, cur) => pre + cur.money, 0)}</span>
-            <span className='type'>收入</span>
+          
           </div>
           <div className='total'>
+                  <span className='type'>结余</span>
             <span className='money'>{daylist.reduce((pre, cur) => pre + cur.money, 0).toFixed(2)}</span>
-            <span className='type'>结余</span>
+      
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@
   min-height: 100vh;
   background-color: #f5f5f9;
   box-sizing: border-box;
-  overflow-x: hidden;
+ 
 
   // 顶部导航栏样式 - 匹配NavBar组件
   .nav {
@@ -13,7 +13,7 @@
     font-size: 16px;
     color: #333333;
     // 清除antd-mobile默认的上下内边距，自定义适配
-    padding: 12px 0;
+    padding: 5px 0;
     border-bottom: 1px solid #eeeeee;
   }
 
@@ -26,7 +26,7 @@
       background-color: #ffffff;
       border-radius: 12px;
       padding: 18px 15px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
       // 账单日期行：文字 + 展开箭头
       .date {
@@ -47,15 +47,15 @@
           display: inline-block;
           width: 8px;
           height: 8px;
-          border-top: 2px solid #999999;
+          border-bottom: 2px solid #999999;
           border-right: 2px solid #999999;
           transition: transform 0.2s ease;
-           transform: rotate(315deg);
+           transform: rotate(45deg);
         }
 
         // 展开箭头的旋转样式
         .expand {
-          transform: rotate(135deg);
+          transform: rotate(-135deg);
         }
 
         // 可扩展：收起状态的箭头

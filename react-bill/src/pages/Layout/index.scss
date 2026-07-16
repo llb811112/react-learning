@@ -1,8 +1,8 @@
 .kaLayout {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+  height: 100vh;
+ 
 
   .page {
     height: 618px;
@@ -10,6 +10,15 @@
 
   .tabbar {
     height: 49px;
+      /* 核心固定底部代码 */
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999; /* 防止被页面内容遮挡 */
+border-radius: 10% 10% 0 0;
+  background: #ffe367; /* 必须加背景，不然会透下面内容 */
+    margin-bottom:0px !important;
     .adm-tab-bar-item {
       color: #888c98;
     }

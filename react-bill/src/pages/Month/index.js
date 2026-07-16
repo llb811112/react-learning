@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import dayjs from 'dayjs'
  import './index.scss'
 import { getBillList } from '@/store/modules/billStore'
+import Daybill from './componets/Daybill'
 
  function Month(){
   //控制弹窗的打开和关闭;
@@ -39,6 +40,20 @@ import { getBillList } from '@/store/modules/billStore'
       .filter(item => item.type === 'income')
       .reduce((sum, item) => sum + item.money, 0)
     return { pay, income, balance: income - pay }
+  }, [monthGroup])
+
+  // 按日期分组账单
+  const dayGroup = useMemo(() => {
+    const groups = {}
+    monthGroup.forEach(item => {
+      const dateKey = dayjs(item.date).format('YYYY-MM-DD')
+      if (!groups[dateKey]) {
+        groups[dateKey] = []
+      }
+      groups[dateKey].push(item)
+    })
+    // 按日期倒序排列，最新的在前
+    return Object.entries(groups).sort((a, b) => b[0].localeCompare(a[0]))
   }, [monthGroup])
 
   console.log("MONTHGROUP",monthGroup)
@@ -96,6 +111,12 @@ import { getBillList } from '@/store/modules/billStore'
           onClose={()=>{setShow(false)}}
           max={new Date()}
           />
+        </div>
+        {/* 按日分组账单列表 */}
+        <div className="dayList">
+          {dayGroup.map(([date, daylist]) => (
+            <Daybill key={date} date={date} daylist={daylist} />
+          ))}
         </div>
       </div>
  
