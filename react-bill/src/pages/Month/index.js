@@ -9,7 +9,7 @@ import { getBillList } from '@/store/modules/billStore'
  function Month(){
   //控制弹窗的打开和关闭;
   const [show, setShow] = useState(false);
-  const [billDate, setBillDate] = useState('2023 | 3')
+  const [billDate, setBillDate] = useState('2023 - 03')
 
   //按月做数据的分组;
   const billList = useSelector(state => state.bill.billList)
@@ -21,7 +21,7 @@ import { getBillList } from '@/store/modules/billStore'
 
   const monthGroup = useMemo(() => {
     // 根据选中的年月过滤账单数据
-    const [year, month] = billDate.split(' | ')
+    const [year, month] = billDate.split('-')
     return billList.filter(item => {
       const itemDate = dayjs(item.date)
       return itemDate.year() === Number(year) && (itemDate.month() + 1) === Number(month)
@@ -30,22 +30,25 @@ import { getBillList } from '@/store/modules/billStore'
 
   // 计算当月收支统计
   const overview = useMemo(() => {
+    // 支出
     const pay = monthGroup
       .filter(item => item.type === 'pay')
       .reduce((sum, item) => sum + Math.abs(item.money), 0)
+      // 收入   --- reduce 累加器;
     const income = monthGroup
       .filter(item => item.type === 'income')
       .reduce((sum, item) => sum + item.money, 0)
     return { pay, income, balance: income - pay }
   }, [monthGroup])
 
-  console.log(monthGroup)
+  console.log("MONTHGROUP",monthGroup)
+  console.log("overview",overview)
 
   const onConfirm = (date) => {
     setShow(false)
     //其他逻辑;
     console.log(date)
-    const formattedDate = dayjs(date).format('YYYY | M');
+    const formattedDate = dayjs(date).format('YYYY - MM');
     setBillDate(formattedDate);
   }
   return(
@@ -62,7 +65,7 @@ import { getBillList } from '@/store/modules/billStore'
            onClick={() => setShow(!show)}
           >
             <span className="text">
-              {billDate}
+              {billDate}月账单
             </span>
             {/* 控制expand是否存在 */}
             <span className={classNames('arrow' ,show && 'expand')}></span>
