@@ -1,18 +1,52 @@
  import { NavBar , DatePicker } from 'antd-mobile'
-import { useState  } from 'react';
-import classNames from 'classnames';
-import dayjs from 'dayjs'; 
+import { useState , useMemo, useEffect  } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import classNames from 'classnames'
+import dayjs from 'dayjs'
  import './index.scss'
+import { getBillList } from '@/store/modules/billStore'
+
  function Month(){
-  const [show,setShow] = useState(false);
-  const [ billDate , setBillDate] = useState('2024 | 7月账单')
+  //控制弹窗的打开和关闭;
+  const [show, setShow] = useState(false);
+  const [billDate, setBillDate] = useState('2023 | 3')
+
+  //按月做数据的分组;
+  const billList = useSelector(state => state.bill.billList)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getBillList())
+  }, [dispatch])
+
+  const monthGroup = useMemo(() => {
+    // 根据选中的年月过滤账单数据
+    const [year, month] = billDate.split(' | ')
+    return billList.filter(item => {
+      const itemDate = dayjs(item.date)
+      return itemDate.year() === Number(year) && (itemDate.month() + 1) === Number(month)
+    })
+  }, [billList, billDate])
+
+  // 计算当月收支统计
+  const overview = useMemo(() => {
+    const pay = monthGroup
+      .filter(item => item.type === 'pay')
+      .reduce((sum, item) => sum + Math.abs(item.money), 0)
+    const income = monthGroup
+      .filter(item => item.type === 'income')
+      .reduce((sum, item) => sum + item.money, 0)
+    return { pay, income, balance: income - pay }
+  }, [monthGroup])
+
+  console.log(monthGroup)
+
   const onConfirm = (date) => {
     setShow(false)
     //其他逻辑;
     console.log(date)
-  const formattedDate = dayjs(date).format('YYYY | M月账单');
-  setBillDate(formattedDate);
-
+    const formattedDate = dayjs(date).format('YYYY | M');
+    setBillDate(formattedDate);
   }
   return(
     <>
@@ -36,15 +70,15 @@ import dayjs from 'dayjs';
           {/* 统计区域 */}
           <div className='twoLineOverview'>
             <div className="item">
-              <span className="money">{100}</span>
+              <span className="money">{overview.pay}</span>
               <span className="type">支出</span>
             </div>
             <div className="item">
-              <span className="money">{200}</span>
+              <span className="money">{overview.income}</span>
               <span className="type">收入</span>
             </div>
             <div className="item">
-              <span className="money">{200}</span>
+              <span className="money">{overview.balance}</span>
               <span className="type">结余</span>
             </div>
           </div>
