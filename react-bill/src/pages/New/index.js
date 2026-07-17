@@ -4,12 +4,36 @@ import './index.scss'
 import classNames from 'classnames'
 import { billListData } from '@/contant/billList'
 import { useState } from 'react'
- 
-
+import { addBillList } from '@/store/modules/billStore'
+import{useDispatch} from 'react-redux'
 
 const New = () => {
   // 完全静态，无任何状态或逻辑
+
+  //控制收入支出状态;
  const [billType,setBillType] = useState('pay')
+//收集账单类型;
+const [useFor,setUseFor]= useState('')
+
+//money;
+const [money,setMoney] = useState(0)
+
+// const changeMoney = (value)=>{
+//    setMoney(value)
+// }
+const dispatch = useDispatch()
+const saveBill=()=>{
+   const date = {
+    type:billType,
+    money:billType === 'pay' ? -money : +money,
+    date:new Date(),
+    useFor:useFor
+   }
+ 
+ console.log(date)
+ dispatch(addBillList(date))
+ }
+
   return (
     <div className="keepAccounts">
       <NavBar className="nav" onBack={() => {}}>
@@ -50,8 +74,8 @@ const New = () => {
                 className="input"
                 placeholder="0.00"
                 type="number"
-                value="0.00"
-                readOnly
+                value={money}
+                onChange={setMoney}
               />
               <span className="iconYuan">¥</span>
             </div>
@@ -73,7 +97,7 @@ const New = () => {
                         billType === item.type ? 'selected' : ''
                       )}
                       key={item.type}
-                      onClick={() => setBillType(item.type)}
+                      onClick={() => setUseFor(item.type)}
                     >
                       <div className="icon">
                         <Icon type={item.type} />
@@ -89,7 +113,11 @@ const New = () => {
       </div>
 
       <div className="btns">
-        <Button className="btn save">保 存</Button>
+        <Button 
+        className="btn save"
+        onClick={()=>{saveBill()}}
+
+        >保 存</Button>
       </div>
     </div>
   )

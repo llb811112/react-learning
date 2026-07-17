@@ -49,7 +49,7 @@ export const billListData = {
   income: [
     {
       type: 'professional',
-      name: '其他支出',
+      name: '基本收入',
       list: [
         { type: 'salary', name: '工资' },
         { type: 'overtimepay', name: '加班' },
