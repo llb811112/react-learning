@@ -2,7 +2,7 @@ import './index.scss'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { useState } from 'react'
-import Icon from '../../../../components/index'
+import Icon from '@/components/Icon/index'
 
 const Daybill = ({ date, daylist }) => {
   //由箭头控制是否可?
@@ -39,6 +39,7 @@ const Daybill = ({ date, daylist }) => {
           return (
             <div className="bill" key={item.id}>
               <Icon type={item.useFor} />
+         
               <div className="detail">
                 <div className="billType">{item.useFor}</div>
                 <div></div>
