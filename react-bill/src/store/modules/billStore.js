@@ -34,7 +34,7 @@ export const getBillList =()=>{
 const addBillList =(data)=>{
     return async(dispatch)=>{
         //编写异步请求;
-        const res = await axios.get('http://localhost:8888/ka',data)
+        const res = await axios.post('http://localhost:8888/ka',data)
         //触发同步reducer
         dispatch( addBill(res.data))
     }
