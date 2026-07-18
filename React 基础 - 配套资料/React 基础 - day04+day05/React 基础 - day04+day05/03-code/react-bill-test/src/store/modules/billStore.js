@@ -27,7 +27,7 @@ const { setBillList, addBill } = billStore.actions
 const getBillList = () => {
   return async (dispatch) => {
     // 编写异步请求
-    const res = await axios.get('http://localhost:8888/ka')
+    const res = await axios.post('http://localhost:8888/ka')
     // 触发同步reducer
     dispatch(setBillList(res.data))
   }
