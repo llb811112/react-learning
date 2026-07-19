@@ -1,6 +1,9 @@
 import {request} from "@/utils/request";
-
+import { setToken,getToken,removeToken } from "@/utils/token";
 
 export {
-    request
+    request,
+    setToken,
+    getToken,
+    removeToken
 }

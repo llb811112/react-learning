@@ -1,21 +1,22 @@
 import {request} from '@/utils/index';
 import { createSlice } from '@reduxjs/toolkit';
- 
+import { setToken as _setToken , getToken } from '@/utils/token';
 
  const userStore = createSlice({
   name: 'user',
   initialState: {   
-    token: localStorage.getItem('token') || '', // 从 localStorage 中获取 token
+    token: getToken() || '', // 从 localStorage 中获取 token
   },
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
-      localStorage.setItem('token', action.payload); // 将 token 存储到 localStorage
+
+       _setToken(action.payload); // 将 token 存储到 localStorage
     }},
-      extraReducers: (builder) => {
+    extraReducers: (builder) => {
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       state.token = action.payload;
-      localStorage.setItem('token', action.payload);
+      _setToken(action.payload);
     });
   }
 });
