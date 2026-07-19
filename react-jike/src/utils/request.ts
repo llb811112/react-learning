@@ -1,5 +1,5 @@
 import axios from "axios"
-
+import { getToken } from "@/utils";
 
 const request = axios.create({
   baseURL: "/api", // 基础路径
@@ -8,8 +8,15 @@ const request = axios.create({
 
 // 添加请求拦截器
  request.interceptors.request.use(function (config) {
+    //config里面注入token;
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+        console.log(config)
     // 在发送请求之前做些什么
     return config;
+
   }, function (error) {
     // 对请求错误做些什么
     return Promise.reject(error);

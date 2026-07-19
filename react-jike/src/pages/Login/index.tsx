@@ -17,8 +17,8 @@ import { fetchLogin } from "@/store/modules/user.js"
 import { useNavigate } from "react-router-dom"
  import { toast } from "sonner"
 import { useAppDispatch } from "@/store/hooks"
-
-
+import { useEffect } from "react"
+import { getToken } from "@/utils/token"
 
 const formSchema = z.object({
    mobile: z.string().regex(/^1[3-9]\d{9}$/, {
@@ -32,6 +32,12 @@ const formSchema = z.object({
 const Login = () => {
   const navigate = useNavigate();
  const dispatch = useAppDispatch()
+ 
+  useEffect(() => {
+    if (getToken()) {
+      navigate("/", { replace: true });
+    }
+  }, [navigate]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,6 +47,7 @@ const Login = () => {
   })
 
 async function onSubmit(values: z.infer<typeof formSchema>) {
+
     const payload = {
       mobile: values.mobile,
       code: values.code,
