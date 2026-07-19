@@ -1,3 +1,4 @@
+'use client' // Vite + shadcn 交互组件必加
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -14,7 +15,9 @@ import { Input } from "@/components/ui/input"
 import { fetchLogin } from "@/store/modules/user.js"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
- 
+ import { toast } from "sonner"
+
+
 const formSchema = z.object({
    mobile: z.string().regex(/^1[3-9]\d{9}$/, {
     message: "Please enter a valid phone number.",
@@ -46,17 +49,19 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
     const res = await dispatch(fetchLogin(payload));
 
     console.log("登录成功", res)
-
-    // 登录成功跳转
-    navigate("/")
+ 
+ // 先弹成功提示，再跳转（防止页面刷新toast消失）
+      toast.success("登录成功！欢迎回来")
+      // 延迟跳转，让用户看到提示
+      setTimeout(() => navigate("/"), 600)
 
   } catch (error) {
     console.log("登录失败", error)
+      // 失败弹窗提示
+      toast.error((error as Error)?.message || "登录失败，请检查手机号和验证码")
   }
  
-
-    // 这里可以处理登录逻辑，例如调用 API 等
-    // 表单数据
+ 
   }
 
   return (

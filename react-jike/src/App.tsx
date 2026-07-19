@@ -1,9 +1,14 @@
-
+import { Toaster } from "@/components/ui/sonner"
+import { Outlet } from "react-router-dom"
 function App() {
 
   return (
     <>
-      <div>我是APP页</div>
+    <Outlet />
+      <Toaster 
+        position="top-right" 
+        richColors 
+      />
     </>
   )
 }
