@@ -13,9 +13,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { fetchLogin } from "@/store/modules/user.js"
-import { useDispatch } from "react-redux"
+
 import { useNavigate } from "react-router-dom"
  import { toast } from "sonner"
+import { useAppDispatch } from "@/store/hooks"
+
 
 
 const formSchema = z.object({
@@ -29,7 +31,7 @@ const formSchema = z.object({
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<any>();
+ const dispatch = useAppDispatch()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

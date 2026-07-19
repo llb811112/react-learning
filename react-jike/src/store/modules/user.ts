@@ -5,12 +5,19 @@ import { createSlice } from '@reduxjs/toolkit';
  const userStore = createSlice({
   name: 'user',
   initialState: {   
-    token: '',
+    token: localStorage.getItem('token') || '', // 从 localStorage 中获取 token
   },
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
-    }}
+      localStorage.setItem('token', action.payload); // 将 token 存储到 localStorage
+    }},
+      extraReducers: (builder) => {
+    builder.addCase(fetchLogin.fulfilled, (state, action) => {
+      state.token = action.payload;
+      localStorage.setItem('token', action.payload);
+    });
+  }
 });
 
 export interface ApifoxModel {
@@ -30,7 +37,9 @@ export const fetchLogin = createAsyncThunk(
   '/user/login',
   async (data: ApifoxModel) => {
     const res = await request.post('/authorizations', data);
-    return res.data.token;   // 会自动作为 action.payload
+        console.log(res.data.data.token)
+    return res.data.data.token;   // 会自动作为 action.payload
+
   }
 );
 
