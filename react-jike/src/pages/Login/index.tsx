@@ -31,17 +31,19 @@ const Login = () => {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    // 表单数据
     console.log(values)
   }
 
   return (
-    <div className="w-full max-w-sm">
-      <Form {...form}>
+    <div className="min-h-screen flex items-center justify-center"> 
+    <div className="w-full max-w-md space-y-6">
+      <Form {...form} >
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-2 text-center">
-            <h1 className="font-bold text-2xl">Welcome back</h1>
+            <h1 className="font-bold text-2xl">登录</h1>
             <p className="text-muted-foreground text-sm">
-              Enter your credentials to access your account
+              请输入你的邮箱和密码登录
             </p>
           </div>
           <FormField
@@ -86,16 +88,17 @@ const Login = () => {
             )}
           />
           <Button className="w-full" type="submit">
-            Sign In
+            登录
           </Button>
           <p className="text-center text-muted-foreground text-sm">
-            Don't have an account?{" "}
+            你还没有账号?{" "}
             <a className="hover:underline" href="#">
-              Sign up
+              注册
             </a>
           </p>
         </form>
       </Form>
+    </div>
     </div>
   )
 }
