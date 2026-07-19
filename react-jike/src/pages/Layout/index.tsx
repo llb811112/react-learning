@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router'
+import { Outlet } from 'react-router-dom'
  
 
  
@@ -17,6 +17,7 @@ return (
 
         {/* 二级路由页面插槽 = Next的children */}
         <main className="flex-1 p-6">
+     
           <Outlet />
         </main>
       </div>
