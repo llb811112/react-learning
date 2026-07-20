@@ -2,6 +2,11 @@ import { Outlet } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames'
+import { fetchUserInfo } from '@/store/modules/user';
+import { useAppDispatch } from '@/store/hooks';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/index';
 import './index.css'
 const Layout = () => {
   //拿到当前路径;
@@ -29,11 +34,37 @@ const Layout = () => {
     console.log('跳转路由', path)
     navigate(path)
   }
+
+
+  //用户信息;
+   const dispatch = useAppDispatch();
+  useEffect(() => {
+  const getUser = async () => {
+    try {
+      const res = await dispatch(fetchUserInfo()).unwrap();
+
+      console.log('用户信息:', res);
+ 
+
+    } catch (error) {
+      console.log('获取用户信息失败', error);
+    }
+  };
+
+  getUser();
+}, [dispatch]);
+const name = useSelector((state: RootState) => (state.user.userInfo?.mobile || '')); // 获取用户信息中的用户名
 return (
     <div className="min-h-screen flex flex-col">
       {/* 顶部导航栏 */}
       <header className="h-14 border-b flex items-center px-4">
         <h2>后台管理系统</h2>
+        <div className="ml-auto flex items-center">
+          <span className="mr-4">
+            {name}
+          </span>
+          <button className="text-blue-500 hover:text-blue-700">退出登录</button>
+        </div>
       </header>
 
       <div className="flex flex-1">
