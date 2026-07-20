@@ -8,7 +8,25 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/index';
 import './index.css'
+  import { toast } from "sonner"
+import { Button } from "@/components/ui/button"
 const Layout = () => {
+
+
+function logoutToast() {
+  toast("退出账号", {
+    description: "确定要退出当前登录账号？",
+    duration: Infinity, // 永久停留，必须手动点按钮关闭
+    action: {
+      label: "确认退出",
+      onClick: () => handleLogout(),
+    },
+    cancel: {
+      label: "取消",
+      onClick: () => toast.dismiss(),
+    },
+  })
+}
   //拿到当前路径;
   const location = useLocation()
   console.log('当前路径', location.pathname)
@@ -54,6 +72,19 @@ const Layout = () => {
   getUser();
 }, [dispatch]);
 const name = useSelector((state: RootState) => (state.user.userInfo?.mobile || '')); // 获取用户信息中的用户名
+
+
+const handleLogout = () => {
+  // 清除 token 和用户信息
+  dispatch({ type: 'user/setToken', payload: '' });
+  dispatch({ type: 'user/setUserInfo', payload: null });
+
+  // 跳转到登录页
+  navigate('/login');
+};
+// 项目是是直接在redux里面写退出登录逻辑的 redux里面写退出登录逻辑的 reducer
+
+
 return (
     <div className="min-h-screen flex flex-col">
       {/* 顶部导航栏 */}
@@ -63,7 +94,12 @@ return (
           <span className="mr-4">
             {name}
           </span>
-          <button className="text-blue-500 hover:text-blue-700">退出登录</button>
+          <Button 
+          className="  "
+          onClick={logoutToast}
+          >
+            退出登录
+          </Button>
         </div>
       </header>
 
