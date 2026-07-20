@@ -21,7 +21,7 @@ export default defineConfig({
    server:{
    proxy:{
      "/api":{
-       target:"http://geek.itheima.net/v1_0",
+       target:"https://geek.itheima.net/v1_0",
        changeOrigin:true,
        rewrite:(path)=>path.replace(/^\/api/,'')
      }

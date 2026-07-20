@@ -13,7 +13,7 @@ const request = axios.create({
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-        console.log(config)
+    console.log('请求头:', config.headers.Authorization);
     // 在发送请求之前做些什么
     return config;
 

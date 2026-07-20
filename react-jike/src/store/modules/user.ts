@@ -6,19 +6,30 @@ import { setToken as _setToken , getToken } from '@/utils/token';
   name: 'user',
   initialState: {   
     token: getToken() || '', // 从 localStorage 中获取 token
+    userInfo: null, // 用户信息
   },
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
 
        _setToken(action.payload); // 将 token 存储到 localStorage
-    }},
+    
+    
+      },
+      setUserInfo(state, action) {
+      state.userInfo = action.payload;
+    }
+    },
     extraReducers: (builder) => {
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       state.token = action.payload;
       _setToken(action.payload);
-    });
-  }
+    })
+    builder.addCase(fetchUserInfo.fulfilled, (state, action) => {
+      state.userInfo = action.payload;
+    })
+  },
+  
 });
 
 export interface ApifoxModel {
@@ -44,8 +55,18 @@ export const fetchLogin = createAsyncThunk(
   }
 );
 
- 
-export const { setToken } = userStore.actions;
+export const fetchUserInfo = createAsyncThunk(
+  '/user/info',
+  async () => {
+    const res = await request.get('/user/profile', {
+
+    });
+    console.log(res.data.data)
+    return res.data.data;
+  }
+);
+
+export const { setToken , setUserInfo} = userStore.actions;
 // 导出 reducer
 const userReducer = userStore.reducer;
 export default userReducer;
