@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router"
 import Login from "@/pages/Login"
 import Layout from "@/pages/Layout"
-import Index from "@/pages/Index"
+import Home from "@/pages/Home"
 import App from "@/App"
 import AuthRoute from "@/components/authRoute"
-
+import Article from "@/pages/Article"
+import Publish from "@/pages/Publish"
 const router = createBrowserRouter([
+
   {
     path: "/",
     element: <App />,
@@ -25,8 +27,20 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <Index />,
+                element: <Home/>,
               },
+              {
+                path: "/home",
+                element: <Home />,
+              },
+              {
+                path: "/article",
+                element: <Article />,
+              },
+              {
+                path: "/publish",
+                element: <Publish />,
+              }
             ],
           },
         ],
