@@ -1,8 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
- 
+import { useLocation } from 'react-router-dom'
+import classNames from 'classnames'
 import './index.css'
 const Layout = () => {
+  //拿到当前路径;
+  const location = useLocation()
+  console.log('当前路径', location.pathname)
   const navigate = useNavigate()
   const items = [
     {
@@ -37,10 +41,12 @@ return (
         <aside className="w-56 border-r">
           <ul>
             {items.map((item) => (
-              <li key={item.key} className="pt-[10px] bg-gray-200 hover:bg-blue-500 align-middle" onClick={() => {
+              <li key={item.key} onClick={() => {
                 // 跳转路由
                 handleClick(item.key)
-              }}>
+              }}
+              className = {classNames({ 'select': location.pathname === item.key ,'pt-2 pb-2 pl-4 cursor-pointer hover:bg-gray-200': true  })}
+              >
                 {item.label}
                
               </li>
